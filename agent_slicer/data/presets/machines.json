@@ -1,0 +1,151 @@
+{
+  "elegoo-mars-5-ultra": {
+    "display_name": "ELEGOO Mars 5 Ultra",
+    "process": "resin",
+    "build_volume_mm": [153.36, 77.76, 165.0],
+    "resolution": [8520, 4320],
+    "output_formats": ["ctb", "goo"],
+    "default_output_format": "ctb",
+    "margin_mm": 3.0,
+    "firmware_machine_name": "ELEGOO Mars 5 Ultra",
+    "settings": {
+      "technology": "MSLA",
+      "build_volume_mm": [153.36, 77.76, 165.0],
+      "resolution_px": [8520, 4320],
+      "xy_pixel_size_mm": 0.018,
+      "supported_layer_height_mm": [0.01, 0.2],
+      "output_formats": ["ctb", "goo"],
+      "movement_source": "Mars 5 Ultra tilt-release; Mars 3 Pro lift/drop values are not copied",
+      "production_status": "hardware-and-firmware-validation-required"
+    },
+    "provenance": {
+      "kind": "local-chitubox-machine-config",
+      "source": "config/printers/mars-5-ultra.json",
+      "imported": "2026-09-14"
+    },
+    "limitations": [
+      "CTB/GOO output and tilt-release motion semantics still require non-physical validation for this printer.",
+      "The dimensions and resolution are local machine-config facts, not proof of firmware acceptance."
+    ]
+  },
+  "elegoo-mars-3-pro": {
+    "display_name": "ELEGOO Mars 3 Pro",
+    "process": "resin",
+    "build_volume_mm": [143.43, 89.6, 175.0],
+    "resolution": [4098, 2560],
+    "output_formats": ["ctb"],
+    "default_output_format": "ctb",
+    "margin_mm": 3.0,
+    "firmware_machine_name": "ELEGOO Mars 3 Pro",
+    "settings": {
+      "technology": "MSLA",
+      "build_volume_mm": [143.43, 89.6, 175.0],
+      "resolution_px": [4098, 2560],
+      "xy_pixel_size_mm": 0.035,
+      "supported_layer_height_mm": [0.01, 0.2],
+      "output_format": "ctb",
+      "official_elegoo_grey_resin_baseline_0_05_mm": {
+        "normal_exposure_s": [2.5, 3.0],
+        "bottom_exposure_s": [25.0, 30.0],
+        "lift_distance_mm": 5.0,
+        "lift_speed_mm_min": 80.0,
+        "retract_speed_mm_min": 210.0,
+        "rest_after_retract_s": 0.5
+      }
+    },
+    "evidence": [
+      {
+        "url": "https://www.elegoo.com/en-gb/collections/elegoo-product-ex-s3-s4-m5/products/elegoo-mars-3-pro-4k-mono-lcd-3d-printer",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "4098 x 2560 resolution and 0.035 mm XY accuracy",
+          "143.43 x 89.6 x 175 mm build volume",
+          "0.01-0.2 mm layer-height range"
+        ]
+      },
+      {
+        "url": "https://wiki.elegoo.com/resin-settings",
+        "retrieved": "2026-08-30",
+        "source_updated": "2026-05-21",
+        "claims": [
+          "Mars 3 / Mars 3 Pro current manufacturer resin-setting table",
+          "grey Standard Resin 1.0/2.0 baseline at 0.05 mm",
+          "5 mm lift, 80 mm/min lift, 210 mm/min retract, and 0.5 s rest"
+        ]
+      }
+    ]
+  },
+  "bambu-lab-p2s-0.4": {
+    "display_name": "Bambu Lab P2S (0.4 mm nozzle)",
+    "process": "fdm",
+    "build_volume_mm": [256.0, 256.0, 256.0],
+    "nozzle_diameter_mm": 0.4,
+    "compatible_nozzle_diameters_mm": [0.2, 0.4, 0.6, 0.8],
+    "output_formats": ["3mf", "gcode.3mf"],
+    "default_output_format": "gcode.3mf",
+    "margin_mm": 5.0,
+    "settings": {
+      "technology": "FFF",
+      "build_volume_mm": [256.0, 256.0, 256.0],
+      "nozzle_diameter_mm": 0.4,
+      "nozzle_type": "hardened_steel",
+      "max_nozzle_temperature_c": 300,
+      "max_bed_temperature_c": 110,
+      "machine_max_speed_mm_s": {
+        "x": 600,
+        "y": 600,
+        "z": 20,
+        "e": 30
+      },
+      "machine_max_acceleration_mm_s2": {
+        "x": 20000,
+        "y": 20000,
+        "z": 500,
+        "extruding": 20000,
+        "travel": 10000
+      },
+      "retraction": {
+        "length_mm": 0.8,
+        "speed_mm_s": 30,
+        "z_hop_mm": 0.4
+      },
+      "default_bed": "Textured PEI Plate"
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "Bambu Lab P2S 0.4 nozzle",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "evidence": [
+      {
+        "url": "https://blog.bambulab.com/the-icon-redefined-meet-the-p2s-a-completely-reengineered-version-of-the-ultra-productive-p1-series/",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "256 x 256 x 256 mm build volume",
+          "300 C maximum nozzle temperature",
+          "0.2, 0.4, 0.6, and 0.8 mm nozzle support",
+          "110 C maximum heatbed temperature and automatic flow dynamics calibration"
+        ]
+      },
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/machine/Bambu%20Lab%20P2S%200.4%20nozzle.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S 0.4 mm machine profile and hard motion limits",
+          "default Bambu PLA Basic and 0.20mm Standard profile selection",
+          "0.8 mm retraction at 30 mm/s"
+        ]
+      }
+    ]
+  },
+  "test-small": {
+    "process": "resin",
+    "build_volume_mm": [80.0, 45.0, 80.0],
+    "resolution": [160, 90],
+    "output_formats": ["ctb", "goo"],
+    "default_output_format": "ctb",
+    "margin_mm": 2.0
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "draft": {
+    "process": "resin",
+    "layer_height_mm": 0.1,
+    "validation_policy": "development"
+  },
+  "standard": {
+    "process": "resin",
+    "layer_height_mm": 0.05,
+    "validation_policy": "standard"
+  },
+  "high-detail": {
+    "process": "resin",
+    "layer_height_mm": 0.03,
+    "validation_policy": "production",
+    "limitations": [
+      "The supplied Mars 3 Pro resin profiles were sourced at 0.05 mm; 0.03 mm normal exposure must be calibrated instead of assumed."
+    ]
+  },
+  "mars-5-ultra-0.05-high-detail": {
+    "display_name": "Mars 5 Ultra 0.05 mm Detail",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "layer_height_mm": 0.05,
+    "validation_policy": "production",
+    "limitations": [
+      "The Mars 5 Ultra resin values are conservative starting points and require a small exposure and dimensional-detail calibration."
+    ]
+  },
+  "p2s-0.08-high-quality": {
+    "display_name": "P2S 0.08 mm High Quality",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "layer_height_mm": 0.08,
+    "validation_policy": "production",
+    "settings": {
+      "layer_height_mm": 0.08,
+      "initial_layer_height_mm": 0.2,
+      "line_width_mm": 0.42,
+      "initial_layer_line_width_mm": 0.5,
+      "outer_wall_line_width_mm": 0.42,
+      "inner_wall_line_width_mm": 0.45,
+      "wall_loops": 2,
+      "top_shell_layers": 9,
+      "bottom_shell_layers": 7,
+      "sparse_infill_percent": 15,
+      "sparse_infill_pattern": "gyroid",
+      "support_enabled": false,
+      "support_type": "tree(auto)",
+      "support_threshold_angle_deg": 15,
+      "support_top_z_distance_mm": 0.08,
+      "support_bottom_z_distance_mm": 0.08,
+      "speeds_mm_s": {
+        "initial_layer": 50,
+        "outer_wall": 60,
+        "inner_wall": 120,
+        "sparse_infill": 150,
+        "top_surface": 150,
+        "support": 150,
+        "support_interface": 80,
+        "travel": 600
+      },
+      "accelerations_mm_s2": {
+        "default": 4000,
+        "outer_wall": 2000,
+        "initial_layer": 500,
+        "travel": 10000
+      },
+      "mesh_resolution_mm": 0.012
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "0.08mm High Quality @BBL P2S",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/process/0.08mm%20High%20Quality%20%40BBL%20P2S.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S 0.08 mm High Quality profile",
+          "quality speeds, accelerations, and gyroid infill"
+        ]
+      }
+    ]
+  },
+  "p2s-0.12-high-quality": {
+    "display_name": "P2S 0.12 mm High Quality",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "layer_height_mm": 0.12,
+    "validation_policy": "production",
+    "settings": {
+      "layer_height_mm": 0.12,
+      "initial_layer_height_mm": 0.2,
+      "line_width_mm": 0.42,
+      "initial_layer_line_width_mm": 0.5,
+      "outer_wall_line_width_mm": 0.42,
+      "inner_wall_line_width_mm": 0.45,
+      "wall_loops": 2,
+      "top_shell_layers": 5,
+      "bottom_shell_layers": 5,
+      "sparse_infill_percent": 15,
+      "sparse_infill_pattern": "gyroid",
+      "support_enabled": false,
+      "support_type": "tree(auto)",
+      "support_threshold_angle_deg": 20,
+      "support_top_z_distance_mm": 0.12,
+      "support_bottom_z_distance_mm": 0.12,
+      "speeds_mm_s": {
+        "initial_layer": 50,
+        "outer_wall": 60,
+        "inner_wall": 150,
+        "sparse_infill": 180,
+        "top_surface": 150,
+        "support": 150,
+        "support_interface": 80,
+        "travel": 600
+      },
+      "accelerations_mm_s2": {
+        "default": 4000,
+        "outer_wall": 2000,
+        "initial_layer": 500,
+        "travel": 10000
+      },
+      "mesh_resolution_mm": 0.012
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "0.12mm High Quality @BBL P2S",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/process/0.12mm%20High%20Quality%20%40BBL%20P2S.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S 0.12 mm High Quality profile",
+          "quality speeds, accelerations, and gyroid infill"
+        ]
+      }
+    ]
+  },
+  "p2s-0.20-standard": {
+    "display_name": "P2S 0.20 mm Standard",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "layer_height_mm": 0.2,
+    "validation_policy": "standard",
+    "settings": {
+      "layer_height_mm": 0.2,
+      "initial_layer_height_mm": 0.2,
+      "line_width_mm": 0.42,
+      "initial_layer_line_width_mm": 0.5,
+      "outer_wall_line_width_mm": 0.42,
+      "inner_wall_line_width_mm": 0.45,
+      "wall_loops": 2,
+      "top_shell_layers": 5,
+      "bottom_shell_layers": 3,
+      "sparse_infill_percent": 15,
+      "sparse_infill_pattern": "grid",
+      "support_enabled": false,
+      "support_type": "tree(auto)",
+      "support_threshold_angle_deg": 30,
+      "support_top_z_distance_mm": 0.2,
+      "support_bottom_z_distance_mm": 0.2,
+      "speeds_mm_s": {
+        "initial_layer": 50,
+        "outer_wall": 200,
+        "inner_wall": 300,
+        "sparse_infill": 270,
+        "top_surface": 200,
+        "support": 150,
+        "support_interface": 80,
+        "travel": 600
+      },
+      "overhang_speeds_mm_s": {
+        "25_to_50_percent": 50,
+        "50_to_75_percent": 30,
+        "75_to_100_percent": 10
+      },
+      "accelerations_mm_s2": {
+        "default": 10000,
+        "outer_wall": 6000,
+        "initial_layer": 500,
+        "travel": 10000
+      },
+      "mesh_resolution_mm": 0.012
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "0.20mm Standard @BBL P2S",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/process/0.20mm%20Standard%20%40BBL%20P2S.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S 0.20 mm Standard profile",
+          "standard-extruder speeds, acceleration, overhang, and support speeds"
+        ]
+      }
+    ]
+  },
+  "p2s-0.24-standard": {
+    "display_name": "P2S 0.24 mm Standard",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "layer_height_mm": 0.24,
+    "validation_policy": "standard",
+    "settings": {
+      "layer_height_mm": 0.24,
+      "initial_layer_height_mm": 0.2,
+      "line_width_mm": 0.42,
+      "initial_layer_line_width_mm": 0.5,
+      "outer_wall_line_width_mm": 0.42,
+      "inner_wall_line_width_mm": 0.45,
+      "top_surface_line_width_mm": 0.45,
+      "wall_loops": 2,
+      "top_shell_layers": 4,
+      "bottom_shell_layers": 3,
+      "sparse_infill_percent": 15,
+      "sparse_infill_pattern": "grid",
+      "support_enabled": false,
+      "support_type": "tree(auto)",
+      "support_threshold_angle_deg": 35,
+      "support_top_z_distance_mm": 0.2,
+      "support_bottom_z_distance_mm": 0.2,
+      "speeds_mm_s": {
+        "initial_layer": 50,
+        "outer_wall": 200,
+        "inner_wall": 230,
+        "sparse_infill": 270,
+        "top_surface": 200,
+        "support": 150,
+        "support_interface": 80,
+        "travel": 600
+      },
+      "accelerations_mm_s2": {
+        "default": 10000,
+        "outer_wall": 5000,
+        "initial_layer": 500,
+        "travel": 10000
+      },
+      "mesh_resolution_mm": 0.012
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "0.24mm Standard @BBL P2S",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/process/0.24mm%20Standard%20%40BBL%20P2S.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S 0.24 mm Standard profile",
+          "standard-extruder speeds and acceleration"
+        ]
+      }
+    ]
+  }
+}

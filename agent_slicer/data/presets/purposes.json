@@ -1,0 +1,287 @@
+{
+  "test-smoke": {
+    "process": "resin",
+    "required_capabilities": [
+      "mesh.inspect",
+      "mesh.clean.degenerate",
+      "mesh.scale",
+      "plate.pack.shelf",
+      "mesh.combine",
+      "resin.support.generate",
+      "resin.slice",
+      "resin.validate.basic"
+    ],
+    "geometry": {
+      "hollow": false,
+      "drain": false
+    },
+    "arrangement": {
+      "clearance_mm": 2.0
+    },
+    "supports": {
+      "enabled": true,
+      "model_lift_mm": 2.0,
+      "overhang_angle_deg": 45.0,
+      "spacing_mm": 3.0,
+      "branching": true,
+      "primary": false
+    }
+  },
+  "miniature-support-dense-experimental": {
+    "process": "resin",
+    "required_capabilities": [
+      "mesh.inspect",
+      "mesh.clean.degenerate",
+      "mesh.scale",
+      "plate.pack.shelf",
+      "mesh.combine",
+      "resin.support.generate",
+      "resin.slice",
+      "resin.validate.basic"
+    ],
+    "geometry": {
+      "hollow": false,
+      "drain": false,
+      "input_may_be_preprocessed": true
+    },
+    "arrangement": {
+      "clearance_mm": 4.0
+    },
+    "supports": {
+      "enabled": true,
+      "model_lift_mm": 5.0,
+      "overhang_angle_deg": 35.0,
+      "spacing_mm": 1.5,
+      "branching": true,
+      "primary": true,
+      "objective": "maximize-experimental-island-coverage"
+    }
+  },
+  "miniature-display-high-detail": {
+    "process": "resin",
+    "required_capabilities": [
+      "mesh.inspect",
+      "mesh.repair.safe",
+      "mesh.scale",
+      "mesh.orient.resin",
+      "mesh.hollow",
+      "mesh.drain.auto",
+      "mesh.cavity.validate",
+      "plate.pack.support-aware",
+      "resin.support.generate",
+      "resin.slice",
+      "resin.validate.production"
+    ],
+    "geometry": {
+      "hollow": true,
+      "repair_method": "local-topology",
+      "repair_voxel_mm": 0.12,
+      "repair_max_p95_deviation_mm": 0.01,
+      "repair_max_deviation_mm": 0.05,
+      "orient": true,
+      "max_tilt_deg": 20.0,
+      "wall_mm": 1.8,
+      "hollow_voxel_mm": 0.15,
+      "hollow_max_p95_change_mm": 0.20,
+      "hollow_max_change_mm": 0.60,
+      "simplification": {
+        "enabled": false,
+        "minimum_input_triangles": 500000,
+        "target_triangles": 350000,
+        "max_p95_deviation_mm": 0.035,
+        "max_deviation_mm": 0.10,
+        "max_volume_change_ratio": 0.005,
+        "sample_points": 20000,
+        "aggression": 5,
+        "protected_component_triangles": 5000
+      },
+      "drain": true,
+      "drain_hole_diameter_mm": 3.5,
+      "drain_hole_count": 2,
+      "drain_preferred_regions": ["sole", "base", "hidden"]
+    },
+    "arrangement": {
+      "clearance_mm": 4.0,
+      "support_footprint_margin_mm": 3.0,
+      "preserve_relative_scale": true
+    },
+    "supports": {
+      "enabled": true,
+      "model_lift_mm": 5.0,
+      "overhang_angle_deg": 40.0,
+      "spacing_mm": 1.35,
+      "branching": true,
+      "primary": true,
+      "objective": "minimize-visible-scarring",
+      "primary_density_multiplier": 2.5,
+      "primary_area_radius_mm": 5.0,
+      "primary_max_extra_per_island": 16,
+      "post_radius_mm": 0.30,
+      "tip_radius_mm": 0.16,
+      "tip_type": "cone",
+      "tip_length_mm": 0.7,
+      "tip_contact_depth_mm": 0.1,
+      "foot_radius_mm": 0.9,
+      "bed_interface": "raft",
+      "raft_offset_mm": 0.8,
+      "raft_chamfer_width_mm": 0.4,
+      "raft_chamfer_angle_deg": 45.0,
+      "bed_interface_thickness_mm": 0.4,
+      "braces": true,
+      "brace_radius_mm": 0.20,
+      "brace_height_mm": 3.0,
+      "brace_interval_mm": 0.0,
+      "brace_distance_mm": 7.0,
+      "collision_clearance_mm": 0.10,
+      "max_base_reach_mm": 45.0,
+      "max_support_angle_deg": 30.0,
+      "tree_merge_distance_mm": 4.0,
+      "tree_max_tips": 12,
+      "tree_trunk_radius_mm": 0.65,
+      "pedestal_height_mm": 2.0,
+      "enforcers": true,
+      "enforcer_reach_mm": 10.0,
+      "enforcer_min_drop_mm": 1.0,
+      "min_island_area_mm2": 0.02,
+        "analysis_max_pixels": 2000000,
+        "feedback_passes": 2,
+        "feedback_contact_spacing_mm": 0.24,
+        "max_feedback_contacts": 360,
+        "refinement_passes": [
+        {
+          "overhang_angle_deg": 46.0,
+          "spacing_mm": 1.0,
+          "primary_density_multiplier": 3.0,
+          "primary_max_extra_per_island": 24,
+          "analysis_max_pixels": 4000000
+        },
+        {
+          "overhang_angle_deg": 50.0,
+          "spacing_mm": 0.85,
+          "primary_density_multiplier": 3.5,
+          "primary_max_extra_per_island": 32,
+          "post_radius_mm": 0.32,
+          "analysis_max_pixels": 6000000
+        }
+      ]
+    },
+    "validation": {
+      "minimum_actionable": {
+        "islands_area_mm2": 0.02,
+        "overhangs_area_mm2": 0.02,
+        "resin_traps_volume_mm3": 0.5
+      },
+      "minimum_prior_layer_contact_pixels": {
+        "islands": 20,
+        "overhangs": 20
+      },
+      "max_issues": {
+        "islands": 0,
+        "overhangs": 0,
+        "resin_traps": 0,
+        "suction_cups": 0,
+        "touching_bounds": 0,
+        "print_height": 0,
+        "empty_layers": 0
+      }
+    }
+  },
+  "functional-resin-dimensional": {
+    "process": "resin",
+    "required_capabilities": [
+      "mesh.inspect",
+      "mesh.repair.safe",
+      "mesh.scale",
+      "mesh.orient.resin",
+      "plate.pack.support-aware",
+      "resin.support.generate",
+      "resin.slice",
+      "resin.validate.production"
+    ],
+    "geometry": {
+      "hollow": false,
+      "drain": false,
+      "dimensional_priority": true
+    },
+    "arrangement": {
+      "clearance_mm": 4.0
+    },
+    "supports": {
+      "enabled": true,
+      "model_lift_mm": 4.0,
+      "overhang_angle_deg": 45.0,
+      "spacing_mm": 3.5,
+      "branching": true,
+      "primary": true,
+      "objective": "preserve-mating-surfaces"
+    }
+  },
+  "fdm-general": {
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "required_capabilities": [
+      "mesh.inspect",
+      "mesh.repair.safe",
+      "mesh.scale",
+      "plate.pack.shelf",
+      "fdm.slice",
+      "fdm.validate.basic"
+    ],
+    "geometry": {
+      "repair": true,
+      "orient": "automatic",
+      "hollow": false
+    },
+    "arrangement": {
+      "enabled": true,
+      "clearance_mm": 5.0
+    },
+    "supports": {
+      "enabled": false,
+      "type": "tree(auto)",
+      "threshold": "quality-profile"
+    },
+    "validation": {
+      "require_sliced_3mf": true,
+      "require_gcode_statistics": true,
+      "require_build_volume_check": true
+    }
+  },
+  "fdm-display-supported": {
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "required_capabilities": [
+      "mesh.inspect",
+      "mesh.repair.safe",
+      "mesh.scale",
+      "mesh.orient.fdm",
+      "plate.pack.support-aware",
+      "fdm.support.generate",
+      "fdm.slice",
+      "fdm.validate.basic"
+    ],
+    "geometry": {
+      "repair": true,
+      "orient": "minimize-support-and-visible-scarring",
+      "hollow": false
+    },
+    "arrangement": {
+      "enabled": true,
+      "clearance_mm": 7.0,
+      "support_footprint_margin_mm": 3.0
+    },
+    "supports": {
+      "enabled": true,
+      "type": "tree(auto)",
+      "threshold": "quality-profile",
+      "build_plate_only": false,
+      "objective": "minimize-visible-scarring"
+    },
+    "validation": {
+      "require_sliced_3mf": true,
+      "require_gcode_statistics": true,
+      "require_build_volume_check": true,
+      "require_support_review": true
+    }
+  }
+}

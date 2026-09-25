@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-slicer.dev/schemas/generation-v1.json",
+  "title": "Agent-Slicer generation project",
+  "type": "object",
+  "required": [
+    "schema", "name", "kind", "description", "target_height_mm",
+    "image_provider", "model_provider", "status", "approvals", "tasks",
+    "artifacts", "selected_candidate_id", "created_unix", "updated_unix"
+  ],
+  "properties": {
+    "schema": {"const": "agent-slicer-generation/v1"},
+    "name": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["part", "concept"]},
+    "description": {"type": "string", "minLength": 1},
+    "target_height_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "image_provider": {"enum": ["meshy", "tripo"]},
+    "model_provider": {"enum": ["meshy", "tripo"]},
+    "status": {"type": "string"},
+    "approvals": {
+      "type": "object",
+      "required": ["brief", "references", "selection"],
+      "properties": {
+        "brief": {"type": "boolean"},
+        "references": {"type": "boolean"},
+        "selection": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "tasks": {"type": "array", "items": {"type": "object"}},
+    "artifacts": {"type": "array", "items": {"type": "object"}},
+    "selected_candidate_id": {"type": ["string", "null"]},
+    "created_unix": {"type": "number"},
+    "updated_unix": {"type": "number"},
+    "adopted_project": {"type": "string"},
+    "adopted_model_id": {"type": "string"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "agent-slicer-parametric-part/v1",
+  "name": "four-hole-mounting-plate",
+  "description": "A 60 x 35 x 4 mm mounting plate with four 4.2 mm through holes.",
+  "units": "mm",
+  "parameters": {
+    "plate_width_mm": 60.0,
+    "plate_depth_mm": 35.0,
+    "plate_thickness_mm": 4.0,
+    "hole_diameter_mm": 4.2,
+    "hole_inset_mm": 6.0
+  },
+  "operations": [
+    {
+      "operation": "add",
+      "shape": "box",
+      "size_mm": [60.0, 35.0, 4.0],
+      "center_mm": [0.0, 0.0, 2.0]
+    },
+    {
+      "operation": "cut",
+      "shape": "cylinder",
+      "diameter_mm": 4.2,
+      "height_mm": 8.0,
+      "axis": "z",
+      "center_mm": [-24.0, -11.5, 2.0]
+    },
+    {
+      "operation": "cut",
+      "shape": "cylinder",
+      "diameter_mm": 4.2,
+      "height_mm": 8.0,
+      "axis": "z",
+      "center_mm": [24.0, -11.5, 2.0]
+    },
+    {
+      "operation": "cut",
+      "shape": "cylinder",
+      "diameter_mm": 4.2,
+      "height_mm": 8.0,
+      "axis": "z",
+      "center_mm": [-24.0, 11.5, 2.0]
+    },
+    {
+      "operation": "cut",
+      "shape": "cylinder",
+      "diameter_mm": 4.2,
+      "height_mm": 8.0,
+      "axis": "z",
+      "center_mm": [24.0, 11.5, 2.0]
+    }
+  ],
+  "finish": {
+    "fillet_mm": 1.0
+  }
+}

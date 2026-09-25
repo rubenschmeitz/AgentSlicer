@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-slicer.dev/schemas/project-v1.json",
+  "title": "Agent-Slicer project",
+  "type": "object",
+  "required": ["schema", "name", "process", "machine", "material", "purpose", "models"],
+  "properties": {
+    "schema": {"const": "agent-slicer-project/v1"},
+    "name": {"type": "string", "minLength": 1},
+    "process": {"enum": ["resin", "fdm"]},
+    "machine": {"type": "string", "minLength": 1},
+    "material": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "quality": {"type": "string"},
+    "output_format": {"type": "string"},
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "sha256"],
+        "properties": {
+          "id": {"type": "string"},
+          "source": {"type": "string"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "target_height_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+          "quantity": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "overrides": {"type": "object"}
+  },
+  "additionalProperties": false
+}
+

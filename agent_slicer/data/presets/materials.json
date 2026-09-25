@@ -1,0 +1,566 @@
+{
+  "standard-test": {
+    "process": "resin",
+    "compatible_machines": ["test-small"],
+    "resin_slicer_profile": "small-test"
+  },
+  "ifun-if3121-toughness-grey": {
+    "display_name": "iFun iF3121 Toughness Grey",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-3-pro"],
+    "resin_slicer_profile": "elegoo-mars-3-pro-ifun-if3121-toughness-grey",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 32.0,
+      "BottomLayerCount": 5
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 32.0,
+      "bottom_layer_count": 5,
+      "transition_layer_count": 5,
+      "lift_distance_mm": 5.0,
+      "lift_speed_mm_min": 100.0,
+      "bottom_lift_speed_mm_min": 70.0,
+      "retract_speed_mm_min": 150.0,
+      "rest_before_lift_s": 0.5,
+      "wait_after_retract_s": 0.8
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "resin_configs_mars3pro.zip",
+      "source_sha256": "d7ed33267d052e2053b7d82a67747b77cdd535bb826b86e2788ab6ad6cc344c7",
+      "imported": "2026-08-28"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": [
+        "the supplied Mars 3 Pro profile is more specific than iFun's generic 4K-mono guidance"
+      ],
+      "procedure": [
+        "start from 2.5 s at 0.05 mm",
+        "run a small exposure calibration for this bottle and ambient temperature",
+        "change normal exposure in small steps before changing lift motion"
+      ]
+    },
+    "limitations": [
+      "iFun's generic manufacturer PDF lists a substantially longer 4K-mono exposure range; it is not Mars-3-Pro-specific, so that conflict is retained rather than silently replacing the supplied profile."
+    ],
+    "evidence": [
+      {
+        "url": "https://ifun3d.com/wp-content/uploads/2022/04/IF3121-High-Toughness-Resin-parametr.pdf",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "manufacturer generic IF3121 resin guidance",
+          "generic 4K-mono values differ from the user-supplied Mars 3 Pro profile"
+        ]
+      }
+    ]
+  },
+  "anycubic-water-washable-2-grey": {
+    "display_name": "Anycubic Water-Wash Resin 2.0 Grey",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-3-pro"],
+    "resin_slicer_profile": "elegoo-mars-3-pro-anycubic-water-washable-2-grey",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 5
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 5,
+      "transition_layer_count": 5,
+      "lift_distance_mm": 5.0,
+      "lift_speed_mm_min": 90.0,
+      "bottom_lift_speed_mm_min": 70.0,
+      "retract_speed_mm_min": 150.0,
+      "rest_before_lift_s": 0.5,
+      "wait_after_retract_s": 0.8
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "resin_configs_mars3pro.zip",
+      "source_sha256": "d7ed33267d052e2053b7d82a67747b77cdd535bb826b86e2788ab6ad6cc344c7",
+      "imported": "2026-08-28"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": [
+        "the exact setting came from the supplied Mars 3 Pro profile rather than an ELEGOO-resin table"
+      ],
+      "procedure": [
+        "start from 2.5 s at 0.05 mm",
+        "run an exposure calibration for the current bottle",
+        "inspect dimensional detail and support tips before production"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://eu.anycubic.com/pages/resin-user-manual",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "manufacturer resin manuals and handling guidance",
+          "Water-Wash Resin 2.0 is a resin-specific product family"
+        ]
+      }
+    ]
+  },
+  "photocentric-uv-lcd-hard-black": {
+    "display_name": "Photocentric UV LCD Hard Black",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-3-pro"],
+    "resin_slicer_profile": "elegoo-mars-3-pro-photocentric-uv-lcd-hard-black",
+    "expected_properties": {
+      "ExposureTime": 4.3,
+      "BottomExposureTime": 38.0,
+      "BottomLayerCount": 5
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 4.3,
+      "bottom_exposure_s": 38.0,
+      "bottom_layer_count": 5,
+      "transition_layer_count": 5,
+      "lift_distance_mm": 5.0,
+      "lift_speed_mm_min": 90.0,
+      "bottom_lift_speed_mm_min": 70.0,
+      "retract_speed_mm_min": 150.0,
+      "rest_before_lift_s": 0.5,
+      "wait_after_retract_s": 0.8
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "resin_configs_mars3pro.zip",
+      "source_sha256": "d7ed33267d052e2053b7d82a67747b77cdd535bb826b86e2788ab6ad6cc344c7",
+      "imported": "2026-08-28"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": [
+        "the exact setting came from the supplied Mars 3 Pro profile and still needs bottle-specific confirmation"
+      ],
+      "procedure": [
+        "start from 4.3 s at 0.05 mm",
+        "run an exposure calibration and inspect brittle fine features",
+        "confirm support removal on a small test before a full plate"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://photocentricgroup.com/print-settings/",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "manufacturer maintains printer/resin-specific print settings",
+          "material settings must be selected by printer and resin rather than globally"
+        ]
+      }
+    ]
+  },
+  "bambu-pla-basic-p2s": {
+    "display_name": "Bambu PLA Basic (P2S, 0.4 mm)",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "settings": {
+      "filament_type": "PLA",
+      "nozzle_temperature_c": 220,
+      "initial_nozzle_temperature_c": 220,
+      "textured_pei_bed_temperature_c": 55,
+      "engineering_plate_temperature_c": 55,
+      "hot_plate_temperature_c": 55,
+      "supertack_plate_temperature_c": 40,
+      "flow_ratio": 0.98,
+      "max_volumetric_speed_mm3_s": 21,
+      "part_fan_min_percent": 100,
+      "part_fan_max_percent": 100,
+      "aux_fan_percent": 70,
+      "fan_off_first_layers": 1,
+      "slow_down_layer_time_s": 4,
+      "slow_down_min_speed_mm_s": 20
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "Bambu PLA Basic @BBL P2S",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "calibration": {
+      "reasons": [
+        "official system values assume Bambu PLA Basic and the standard P2S extruder variant"
+      ],
+      "procedure": [
+        "use the matching official Bambu filament preset",
+        "run flow dynamics and flow-rate calibration after changing brand, formulation, or nozzle",
+        "retain the official 21 mm3/s volumetric cap until calibration supports a change"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/filament/Bambu%20PLA%20Basic%20%40BBL%20P2S.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S Bambu PLA Basic child profile",
+          "220 C nozzle, 0.98 flow ratio, and 21 mm3/s cap for the standard extruder"
+        ]
+      }
+    ]
+  },
+  "bambu-petg-hf-p2s": {
+    "display_name": "Bambu PETG HF (P2S, 0.4 mm)",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "settings": {
+      "filament_type": "PETG HF",
+      "nozzle_temperature_c": 245,
+      "initial_nozzle_temperature_c": 230,
+      "textured_pei_bed_temperature_c": 70,
+      "engineering_plate_temperature_c": 70,
+      "hot_plate_temperature_c": 70,
+      "flow_ratio": 0.95,
+      "max_volumetric_speed_mm3_s": 21,
+      "part_fan_min_percent": 30,
+      "part_fan_max_percent": 60,
+      "aux_fan_percent": 0,
+      "fan_off_first_layers": 3,
+      "slow_down_layer_time_s": 10,
+      "slow_down_min_speed_mm_s": 20
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "Bambu PETG HF @BBL P2S 0.4 nozzle",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "calibration": {
+      "reasons": [
+        "official system values assume Bambu PETG HF dried and used with the standard P2S extruder variant"
+      ],
+      "procedure": [
+        "dry PETG according to its spool guidance",
+        "run flow dynamics and flow-rate calibration for non-Bambu or aged material",
+        "retain the official 21 mm3/s standard-extruder cap until calibration supports a change"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/filament/Bambu%20PETG%20HF%20%40BBL%20P2S%200.4%20nozzle.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S 0.4 mm Bambu PETG HF profile",
+          "245 C normal and 230 C initial nozzle temperature",
+          "21 mm3/s cap for the standard extruder variant"
+        ]
+      }
+    ]
+  },
+  "bambu-abs-p2s": {
+    "display_name": "Bambu ABS (P2S, 0.4 mm)",
+    "process": "fdm",
+    "compatible_machines": ["bambu-lab-p2s-0.4"],
+    "settings": {
+      "filament_type": "ABS",
+      "nozzle_temperature_c": 270,
+      "initial_nozzle_temperature_c": 260,
+      "textured_pei_bed_temperature_c": 90,
+      "engineering_plate_temperature_c": 90,
+      "hot_plate_temperature_c": 90,
+      "flow_ratio": 0.95,
+      "max_volumetric_speed_mm3_s": 16,
+      "part_fan_min_percent": 10,
+      "part_fan_max_percent": 60,
+      "aux_fan_percent": 0,
+      "fan_off_first_layers": 3,
+      "slow_down_layer_time_s": 12,
+      "slow_down_min_speed_mm_s": 20
+    },
+    "upstream_profile": {
+      "vendor": "Bambu Studio",
+      "vendor_config_version": "02.08.00.05",
+      "name": "Bambu ABS @BBL P2S",
+      "repository_commit": "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
+      "extruder_variant": "Direct Drive Standard"
+    },
+    "calibration": {
+      "reasons": [
+        "ABS results depend strongly on dryness, chamber conditions, geometry, and bed adhesion"
+      ],
+      "procedure": [
+        "use a clean compatible build surface and keep the enclosure closed",
+        "run flow dynamics and flow-rate calibration for non-Bambu material",
+        "retain the official 16 mm3/s standard-extruder cap until calibration supports a change"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/bambulab/BambuStudio/blob/108e108635f2a223219dcf8f5e8fe3fce5ef40df/resources/profiles/BBL/filament/Bambu%20ABS%20%40BBL%20P2S.json",
+        "retrieved": "2026-08-30",
+        "claims": [
+          "official P2S Bambu ABS profile",
+          "270 C normal and 260 C initial nozzle temperature",
+          "16 mm3/s cap for the standard extruder variant"
+        ]
+      }
+    ]
+  },
+  "photocentric-uv-lcd-hard-black-mars-5-ultra": {
+    "display_name": "Photocentric UV LCD Hard Black (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-photocentric-uv-lcd-hard-black",
+    "expected_properties": {
+      "ExposureTime": 3.0,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 3.0,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.19,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/Photocentric_UV_LCD_Hard_Black_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "ifun-if3121-toughness-grey-mars-5-ultra": {
+    "display_name": "iFun iF3121 Toughness Grey (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-ifun-if3121-toughness-grey",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.16,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/iFun_iF3121_Toughness_Grey_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "anycubic-water-washable-2-grey-mars-5-ultra": {
+    "display_name": "ANYCUBIC Water-Washable Resin 2.0 Grey (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-anycubic-water-washable-2-grey",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.08,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/ANYCUBIC_Water_Washable_Resin_2.0_Grey_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "anycubic-abs-like-plus-mars-5-ultra": {
+    "display_name": "ANYCUBIC ABS-Like Plus (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-anycubic-abs-like-plus",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.1,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/ANYCUBIC_ABS_Like_Plus_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "anycubic-uv-sensitive-standard-mars-5-ultra": {
+    "display_name": "ANYCUBIC UV Sensitive Standard (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-anycubic-uv-sensitive-standard",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.1,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/ANYCUBIC_UV_Sensitive_Standard_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "sunlu-standard-mars-5-ultra": {
+    "display_name": "SUNLU Standard (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-sunlu-standard",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.1,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/SUNLU_Standard_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "sunlu-abs-like-mars-5-ultra": {
+    "display_name": "SUNLU ABS-Like (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-sunlu-abs-like",
+    "expected_properties": {
+      "ExposureTime": 2.5,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.5,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.1,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/SUNLU_ABS_Like_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  },
+  "sunlu-high-tough-toughness-mars-5-ultra": {
+    "display_name": "SUNLU High-Tough / Toughness (Mars 5 Ultra)",
+    "process": "resin",
+    "compatible_machines": ["elegoo-mars-5-ultra"],
+    "resin_slicer_profile": "elegoo-mars-5-ultra-sunlu-high-tough-toughness",
+    "expected_properties": {
+      "ExposureTime": 2.8,
+      "BottomExposureTime": 30.0,
+      "BottomLayerCount": 4
+    },
+    "settings": {
+      "layer_height_mm": 0.05,
+      "normal_exposure_s": 2.8,
+      "bottom_exposure_s": 30.0,
+      "bottom_layer_count": 4,
+      "transition_layer_count": 5,
+      "rest_after_retract_s": 0.5,
+      "resin_density_g_ml": 1.1,
+      "movement_source": "Mars 5 Ultra tilt-release; do not infer Mars 3 Pro lift/drop values"
+    },
+    "provenance": {
+      "kind": "user-supplied-printer-specific-profile",
+      "source": "profiles/mars-5-ultra/SUNLU_High_Tough_Toughness_Mars_5_Ultra_050mm.cfg",
+      "imported": "2026-09-14"
+    },
+    "calibration": {
+      "source_layer_heights_mm": [0.05],
+      "reasons": ["conservative local starting profile; resin batch and printer conditions remain variable"],
+      "procedure": ["run a small exposure and dimensional-detail calibration before production"]
+    },
+    "limitations": ["Output and tilt-release motion semantics require Mars 5 Ultra hardware/firmware validation."]
+  }
+}

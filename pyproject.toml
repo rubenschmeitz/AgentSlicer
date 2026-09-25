@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-slicer"
+version = "0.3.0"
+description = "Agent-first, deterministic additive-manufacturing preparation and slicing pipeline."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Agent-Slicer contributors" }]
+dependencies = [
+  "manifold3d==3.5.3",
+  "fast-simplification==0.1.13",
+  "numpy>=1.26",
+  "Pillow>=10",
+  "rtree==1.4.1",
+  "scipy>=1.12",
+  "scikit-image>=0.22",
+  "trimesh>=4.0",
+  "websocket-client>=1.8,<2",
+]
+
+[project.optional-dependencies]
+cad = ["cadquery==2.8.0"]
+
+[project.scripts]
+agent-slicer = "agent_slicer.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agent_slicer*"]
+
+[tool.setuptools.package-data]
+agent_slicer = ["data/presets/*.json", "data/blender/*.py", "inspection_ui/*"]

@@ -1,0 +1,21 @@
+{
+  "name": "resin-slicer-electron",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron front end for the Python resin slicer backend.",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on tcp:5178 && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5178 electron .\"",
+    "build": "vite build",
+    "start": "electron .",
+    "postinstall": "node tools/ensure-electron.js",
+    "check": "node --check electron/main.js && node --check electron/preload.js && node --check electron/renderer.js && node --check electron/printer-ipc.js && node --test tests/printer-ipc.test.cjs && node --check tools/ensure-electron.js && vite build"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "cross-env": "^10.1.0",
+    "electron": "^44.0.0",
+    "vite": "^8.2.2",
+    "wait-on": "^9.0.10"
+  }
+}

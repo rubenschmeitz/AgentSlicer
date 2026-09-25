@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent-Slicer Inspection</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="mark">A/S</span><span>Agent-Slicer</span></div>
+    <div class="readonly"><span class="lock">●</span> Inspection only</div>
+    <div id="freshness" class="freshness">Loading evidence…</div>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AUDITED MANUFACTURING PROJECT</p>
+        <h1 id="project-name">Loading…</h1>
+        <p id="project-path" class="path"></p>
+      </div>
+      <div id="status-pill" class="status neutral">UNKNOWN</div>
+    </section>
+
+    <section id="summary-cards" class="cards"></section>
+
+    <section class="workspace">
+      <article class="viewer-panel">
+        <div class="panel-head">
+          <div><p class="eyebrow">GEOMETRY REVIEW</p><h2>Scene inspector</h2></div>
+          <select id="asset-select" aria-label="Geometry asset"></select>
+        </div>
+        <div id="viewer" class="viewer">
+          <canvas id="mesh-canvas"></canvas>
+          <img id="image-preview" alt="Generated artifact preview">
+          <div id="slice-controls" class="slice-controls" hidden>
+            <button id="slice-prev" type="button" aria-label="Previous layer">−</button>
+            <input id="slice-slider" type="range" min="0" max="0" value="0" aria-label="Slice layer">
+            <button id="slice-next" type="button" aria-label="Next layer">+</button>
+            <span id="slice-label">Layer 0</span>
+          </div>
+          <div id="viewer-empty" class="viewer-empty">No visual artifact available</div>
+          <div class="viewer-help">Drag to orbit · wheel to zoom · double-click to reset</div>
+        </div>
+        <div id="geometry-stats" class="geometry-stats"></div>
+      </article>
+
+      <aside class="evidence-panel">
+        <div class="panel-head"><div><p class="eyebrow">FAIL-CLOSED EVIDENCE</p><h2>Validation</h2></div></div>
+        <div id="validation"></div>
+      </aside>
+    </section>
+
+    <section class="lower-grid">
+      <article class="panel"><div class="panel-head"><div><p class="eyebrow">AGENT PLAN</p><h2>Operations & placement</h2></div></div><div id="operations"></div></article>
+      <article class="panel"><div class="panel-head"><div><p class="eyebrow">TRACEABILITY</p><h2>Artifacts</h2></div></div><div id="artifacts"></div></article>
+    </section>
+
+    <section id="limitations" class="limitations"></section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

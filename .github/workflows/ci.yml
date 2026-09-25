@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -e .
+      - run: python -m compileall -q agent_slicer tests
+      - run: python -m unittest discover -s tests -v
+      - name: Verify wheel installation outside the checkout
+        run: |
+          python -m pip wheel --no-deps --wheel-dir "$RUNNER_TEMP/agent-wheels" .
+          python -m venv "$RUNNER_TEMP/agent-wheel-venv"
+          "$RUNNER_TEMP/agent-wheel-venv/bin/pip" install "$RUNNER_TEMP"/agent-wheels/agent_slicer-*.whl
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/agent-wheel-venv/bin/agent-slicer" --help
+          "$RUNNER_TEMP/agent-wheel-venv/bin/python" -c 'from agent_slicer.blender_adapter import blender_script; assert all(blender_script(name).is_file() for name in ("hollow.py", "prepare_resin.py"))'

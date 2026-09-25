@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+build/
+*.egg-info/
+node_modules/
+dist/
+.electron-cache/
+*.goo
+*.ctb
+*.stl
+*.exe
+*.zip
