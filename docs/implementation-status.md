@@ -1,6 +1,6 @@
 # Implementation status
 
-## Verified in 0.3.0
+## Verified workflows
 
 | Area | Status | Evidence |
 | --- | --- | --- |
@@ -8,6 +8,9 @@
 | External printer catalogs | Implemented | Unlimited directory-backed entries, semantic validation, atomic add, SHA-256 audit, and collision rejection |
 | Evidence-backed setting recommendations | Implemented | Mars 3 Pro supplied resin profiles plus pinned official P2S machine/process/PLA/PETG/ABS values; every result remains calibration-required |
 | STL inspection, scaling, and cleanup | Implemented | Binary/ASCII and float32-degeneracy tests |
+| FDM slicing | Implemented via external OrcaSlicer CLI | Real OrcaSlicer 2.4.2 P2S builds across PLA/PETG HF/ABS and all four layer-height presets; actual tree supports, repeated/scaled copies, and sliced 3MF |
+| FDM preparation and validation | Implemented | Measured solid repair, six-bed-face orientation, saved-settings checks, streaming G-code bounds/statistics/checksum, retained logs and failure candidates, cache reuse and revalidation |
+| Imported Bambu presets | Implemented in 0.4 | Bambu Studio CLI, full saved-setting auditing, preserved work-PC filament/support overrides and source vectors, explicit inactive calibration and legacy-field translations |
 | Local mesh repair | Implemented via Blender adapter | Preserves detailed meshes; bounded local patches, winding fixes, sampled deviation and STL reload checks; arbitrary self-intersections are not certified |
 | Measured mesh simplification | Implemented natively | Component-aware quadric edge collapse, protected small bodies, export/reload topology checks, and sampled bidirectional point-to-triangle deviation evidence |
 | Resin orientation | Implemented via Blender adapter | Deterministic bounded candidate scores in each model report |
@@ -43,7 +46,7 @@
 | Advanced export modes | Slicing by model, height, or cross-sectional area and multi-platform project export are not implemented |
 | Native resin writer | Resin-Slicer remains the slicing/output adapter |
 | Physical Mars 3 Pro acceptance | Not tested; no printer communication is implemented |
-| FDM slicing | P2S profiles and FDM capability planning are implemented; no Bambu Studio/production FDM adapter is installed, so slicing remains blocked |
+| FDM scope | Single material and plate, linear ASCII toolpaths, rectangular beds; P2S software path verified, physical printing untested. Other printers require complete matching external presets; see [FDM](fdm.md) |
 | General-purpose CAD | The current schema supports additive/subtractive boxes and cylinders plus a final all-edge fillet or chamfer; complex sketches, constraints, threads, lofts, assemblies, and drawings are not implemented |
 | Cloud generation quality | Provider output remains probabilistic and untrusted; no live paid task was run because no API key is configured |
 

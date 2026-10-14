@@ -4,7 +4,7 @@
 
 Agent-Slicer owns project state, schemas, presets, operation plans, provenance,
 validation contracts, and public APIs. Blender, Resin-Slicer, UVtools,
-PrusaSlicer, and CuraEngine are optional adapters. No external application's
+OrcaSlicer, Bambu Studio, and prospective PrusaSlicer/CuraEngine backends are optional adapters. No external application's
 data model is part of Agent-Slicer's public contract.
 
 The inspection GUI is a read-only projection over existing project, plan,

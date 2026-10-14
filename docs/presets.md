@@ -94,6 +94,15 @@ The Mars 3 Pro values retain the three user-supplied resin profiles and the
 current official ELEGOO hardware/resin-range evidence. The P2S values are
 resolved from the official Bambu Studio vendor profiles pinned in
 [`PRINTER_PROFILES_2026-08-30-v1.md`](PRINTER_PROFILES_2026-08-30-v1.md).
-P2S FDM slicing is not implemented yet, so the corresponding project plan keeps
-`fdm.slice` and `fdm.validate.basic` as blockers instead of falling through to
-the resin backend.
+P2S FDM builds use the external OrcaSlicer CLI. Installed vendor profiles must
+match the selected upstream identities, nozzle, build volume, and compatibility
+rules; emitted settings and saved G-code are independently checked. Missing
+OrcaSlicer or profiles remain blockers. See [FDM setup](fdm.md).
+
+## Saved Bambu Studio user profiles
+
+The [2026-10-14 work PC collection](../presets/bambu-work-pc-20261014/README.md)
+adds the verified PETG Basic and 0.20 mm High Quality selection, user filament
+calibration/overrides and miniature support settings as an external catalog.
+It retains inherited source receipts, reports unsupported settings, and keeps
+the older installed bundle and missing Thuis comparison explicit.

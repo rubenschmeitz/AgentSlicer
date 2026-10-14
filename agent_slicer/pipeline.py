@@ -10,8 +10,11 @@ import hashlib
 from pathlib import Path
 from typing import Any
 
-from .backends import available_capabilities, discover_tools
+from .backends import available_capabilities, discover_tools, fdm_tool
 from .blender_adapter import prepare_resin_model
+from .fdm_adapter import slice_fdm
+from .fdm_profiles import resolve_fdm_profiles
+from .fdm_preparation import prepare_fdm_model, preparation_identity
 from .mesh_simplify import SIMPLIFICATION_SCHEMA, simplify_mesh_measured
 from .models import BuildPlan, SourceModel
 from .presets import resolve_presets
@@ -38,7 +41,8 @@ class BuildRejected(RuntimeError):
         self.result = result
 
 
-def compile_plan(project: str | Path) -> tuple[Path, BuildPlan]:
+def compile_plan(project: str | Path, *, fdm_slicer_path: str | None = None,
+                 fdm_profile_root: str | Path | None = None) -> tuple[Path, BuildPlan]:
     root, manifest = load_project(project)
     resolved = resolve_presets(
         process=manifest.process,
@@ -93,7 +97,7 @@ def compile_plan(project: str | Path) -> tuple[Path, BuildPlan]:
                 }
             )
 
-    tools = discover_tools()
+    tools = discover_tools(fdm_slicer_path=fdm_slicer_path) if fdm_slicer_path else discover_tools()
     capabilities = available_capabilities(tools)
     required = {
         "mesh.inspect",
@@ -106,7 +110,20 @@ def compile_plan(project: str | Path) -> tuple[Path, BuildPlan]:
         required.update({"resin.slice", "resin.validate.basic"})
     elif manifest.process == "fdm":
         required.update({"fdm.slice", "fdm.validate.basic"})
+        if resolved["output_format"] not in {"3mf", "gcode.3mf", "gcode"}:
+            blockers.append({"code": "FDM_FORMAT_UNSUPPORTED", "message": "FDM requires sliced 3MF or ASCII G-code"})
+        executable = fdm_tool(tools, resolved, fdm_slicer_path)
+        if executable:
+            try:
+                profiles = resolve_fdm_profiles(resolved, executable, fdm_profile_root)
+                resolved["backend_profile_evidence"] = profiles["sources"]
+            except (ValueError, KeyError, OSError, TypeError, IndexError) as exc:
+                blockers.append({"code": "FDM_PROFILE_INVALID", "message": str(exc)})
     required.update(resolved["purpose"].get("required_capabilities", []))
+    if _requires_geometry_preparation(resolved["purpose"]):
+        required.add("mesh.repair.safe")
+        if manifest.process == "fdm" and resolved["purpose"].get("geometry", {}).get("orient"):
+            required.add("mesh.orient.fdm")
     if (
         resolved["purpose"]
         .get("geometry", {})
@@ -183,6 +200,8 @@ def build_project(
     project: str | Path,
     *,
     resin_slicer_path: str | None = None,
+    fdm_slicer_path: str | None = None,
+    fdm_profile_root: str | Path | None = None,
     uvtools_path: str | None = None,
     work_root: str | Path | None = None,
     uvtools_workers: int | None = None,
@@ -190,17 +209,21 @@ def build_project(
     reuse_prepared: bool = False,
     resume_rejected: bool = False,
 ) -> dict[str, Any]:
-    root, plan = compile_plan(project)
+    root, plan = compile_plan(project, fdm_slicer_path=fdm_slicer_path, fdm_profile_root=fdm_profile_root)
     write_plan(root, plan)
     blockers = list(plan.blockers)
     if skip_slice:
         blockers = [
             blocker
             for blocker in blockers
-            if blocker.get("capability") not in {
+            if blocker.get("code") not in {"FDM_PROFILE_INVALID", "FDM_FORMAT_UNSUPPORTED"}
+            and blocker.get("capability") not in {
                 "resin.slice",
                 "resin.validate.basic",
                 "resin.validate.production",
+                "fdm.slice",
+                "fdm.validate.basic",
+                "fdm.support.generate",
             }
         ]
     if blockers:
@@ -208,6 +231,8 @@ def build_project(
         raise BuildBlocked(plan)
 
     _, manifest = load_project(root)
+    if manifest.process == "fdm" and resume_rejected:
+        raise ValueError("--resume-rejected is a resin UVtools feedback workflow")
     artifacts = root / "artifacts"
     artifacts.mkdir(parents=True, exist_ok=True)
     previous_build: dict[str, Any] | None = None
@@ -245,6 +270,8 @@ def build_project(
                 transaction=transaction,
                 geometry=purpose["geometry"],
                 reuse_cached=reuse_prepared,
+                process=manifest.process,
+                build_volume_mm=tuple(resolved["machine"]["build_volume_mm"]),
             )
         committed_preparation = _commit_preparation_results(
             artifacts,
@@ -348,7 +375,17 @@ def build_project(
         attempts: list[dict[str, Any]] = []
         targeted_support_points: list[tuple[float, float, float]] = []
         support_plan_cache_dir = transaction_parent.parent / "resin-support-plans"
-        if not skip_slice:
+        if not skip_slice and manifest.process == "fdm":
+            evidence_root = Path(tempfile.mkdtemp(prefix="fdm-", dir=artifacts))
+            evidence_directory = evidence_root / "slice"
+            output_temp = transaction / f"slice.{resolved['output_format']}"
+            slice_result = slice_fdm(plate_temp, output_temp, resolved,
+                evidence_directory=evidence_directory, executable=fdm_slicer_path,
+                configured_profile_root=fdm_profile_root)
+            validation = slice_result["validation"]
+            attempts.append({"attempt": 1, "sha256": sha256_file(output_temp),
+                             "slice": slice_result, "basic_validation": validation})
+        if not skip_slice and manifest.process == "resin":
             variants = _support_variants(purpose["supports"])
             if seed_validation is not None:
                 carried_points = _resume_targeted_support_points(
@@ -453,6 +490,7 @@ def build_project(
                 candidate_dir = artifacts / "rejected" / candidate_hash[:12]
                 candidate_dir.mkdir(parents=True, exist_ok=True)
                 output_final = candidate_dir / output_temp.name
+                validation["path"] = str(output_final.resolve())
                 shutil.copy2(output_temp, output_final)
                 shutil.copy2(plate_final, candidate_dir / "plate.stl")
                 write_validation(candidate_dir / "validation.json", validation)
@@ -465,6 +503,7 @@ def build_project(
                 output_final = artifacts / (
                     f"{_safe_name(plan.project)}.{resolved['output_format']}"
                 )
+                validation["path"] = str(output_final.resolve())
                 _commit_file(output_temp, output_final)
                 write_validation(artifacts / "validation.json", validation)
                 if production_validation is not None:
@@ -473,11 +512,14 @@ def build_project(
                         production_validation,
                     )
             validation["path"] = str(output_final.resolve())
+            if manifest.process == "fdm" and slice_result is not None:
+                slice_result["output"] = str(output_final.resolve())
+                _write_json_atomic(Path(slice_result["receipt"]), slice_result)
 
         plate_inspection = inspect_stl(plate_final)
         result: dict[str, Any] = {
             "schema": "agent-slicer-build/v1",
-            "feedback_coordinate_system": "ctb-raster-native-v1",
+            "process": manifest.process,
             "status": "prepared" if skip_slice else ("rejected" if rejected else "completed"),
             "project": str(root),
             "plate": str(plate_final),
@@ -494,6 +536,11 @@ def build_project(
             ),
             "resin_support_plan_cache": str(support_plan_cache_dir.resolve()),
         }
+        if manifest.process == "resin":
+            result["feedback_coordinate_system"] = "ctb-raster-native-v1"
+        else:
+            result.pop("resin_support_plan_cache", None)
+            result.pop("uvtools_executable", None)
         if resumed_from is not None:
             result["resumed_from_rejected_build"] = resumed_from
         if output_final is not None:
@@ -517,7 +564,8 @@ def build_project(
 def _requires_geometry_preparation(purpose: dict[str, Any]) -> bool:
     geometry = purpose.get("geometry", {})
     return bool(
-        geometry.get("repair_method")
+        geometry.get("repair")
+        or geometry.get("repair_method")
         or geometry.get("orient")
         or geometry.get("hollow")
         or geometry.get("drain")
@@ -557,7 +605,7 @@ def _preparation_arguments(
 
 def _expected_preparation_request(arguments: dict[str, Any]) -> dict[str, Any]:
     hollow = bool(arguments["hollow"])
-    return {
+    requested = {
         "target_height_mm": arguments["target_height_mm"],
         "repair_method": arguments.get("repair_method", "local-topology"),
         "repair_voxel_mm": arguments["voxel_mm"],
@@ -574,6 +622,9 @@ def _expected_preparation_request(arguments: dict[str, Any]) -> dict[str, Any]:
         "drain_diameter_mm": arguments["drain_diameter_mm"],
         "drain_count": arguments["drain_count"],
     }
+    if "build_volume_mm" in arguments:
+        requested["build_volume_mm"] = list(arguments["build_volume_mm"])
+    return requested
 
 
 def _find_cached_preparation(
@@ -599,7 +650,7 @@ def _find_cached_preparation(
         except (OSError, json.JSONDecodeError):
             continue
         if (
-            result.get("schema") != "agent-slicer-resin-preparation/v3"
+            result.get("schema") != ("agent-slicer-fdm-preparation/v1" if "build_volume_mm" in arguments else "agent-slicer-resin-preparation/v3")
             or result.get("status") != "passed"
             or result.get("export_validation", {}).get("status") != "passed"
             or result.get("source_sha256") != model.sha256
@@ -610,6 +661,13 @@ def _find_cached_preparation(
         repair = result.get("stages", {}).get("repair_and_orientation", {})
         if repair.get("status") != "passed":
             continue
+        if "build_volume_mm" in arguments and result.get("implementation_sha256") != preparation_identity():
+            continue
+        if "build_volume_mm" in arguments:
+            orientation_status = "passed" if expected["orient"] else "preserved"
+            if (result.get("orientation", {}).get("status") != orientation_status
+                    or result.get("final_inspection", {}).get("sha256") != result.get("output_sha256")):
+                continue
         if expected["hollow"]:
             hollow = result.get("stages", {}).get("hollow_and_drain", {})
             holes = hollow.get("drain_holes", [])
@@ -635,6 +693,8 @@ def _prepare_models(
     transaction: Path,
     geometry: dict[str, Any],
     reuse_cached: bool = False,
+    process: str = "resin",
+    build_volume_mm: tuple[float, float, float] | None = None,
 ) -> tuple[list[SourceModel], list[Any], list[dict[str, Any]]]:
     prepared_dir = transaction / "prepared"
     prepared_dir.mkdir(parents=True, exist_ok=True)
@@ -645,6 +705,8 @@ def _prepare_models(
         output = prepared_dir / f"{model.id}.stl"
         report = prepared_dir / f"{model.id}.json"
         preparation_arguments = _preparation_arguments(model, geometry)
+        if process == "fdm":
+            preparation_arguments["build_volume_mm"] = build_volume_mm
         cached = (
             _find_cached_preparation(root, model, preparation_arguments)
             if reuse_cached
@@ -656,7 +718,8 @@ def _prepare_models(
                 shutil.copy2(cached_mesh, output)
                 shutil.copy2(cached_report, report)
             else:
-                result = prepare_resin_model(
+                prepare = prepare_fdm_model if process == "fdm" else prepare_resin_model
+                result = prepare(
                     root / model.source,
                     output,
                     report,
@@ -1836,6 +1899,7 @@ def _commit_file(source: Path, destination: Path) -> None:
 
 def _write_markdown_report(path: Path, result: dict[str, Any], plan: BuildPlan) -> None:
     validation = result.get("validation", {})
+    is_fdm = plan.resolved_config.get("process") == "fdm"
     lines = [
         f"# Agent-Slicer build: {Path(plan.project).name}",
         "",
@@ -1874,13 +1938,22 @@ def _write_markdown_report(path: Path, result: dict[str, Any], plan: BuildPlan) 
             "",
             "- Local topology repair preserves detail outside bounded patches; explicit voxel reconstruction is lossy.",
             "- Mesh simplification is lossy and accepted only when topology, volume, bounds, and sampled surface-deviation gates pass.",
-            "- Resin orientation uses a bounded deterministic heuristic, not a global optimum.",
+            ("- FDM orientation evaluates six bed faces; it does not recognize visible surfaces or functional load direction."
+             if is_fdm else "- Resin orientation uses a bounded deterministic heuristic, not a global optimum."),
             "- Support-aware shelf packing reserves support footprint but does not globally optimize placement.",
-            "- UVtools production validation is detector evidence, not proof of firmware acceptance or a successful physical print.",
-            "- GOO embeds a creation timestamp, so otherwise identical GOO builds are not byte-for-byte identical.",
+            ("- FDM saved settings and deposited linear toolpaths are validated; material calibration, support review, firmware acceptance and physical printing remain unverified."
+             if is_fdm else "- UVtools production validation is detector evidence, not proof of firmware acceptance or a successful physical print."),
+            ("- OrcaSlicer exports timestamps; repeated sliced 3MF files need not be byte-identical."
+             if is_fdm else "- GOO embeds a creation timestamp, so otherwise identical GOO builds are not byte-for-byte identical."),
             "",
         ]
     )
+    if is_fdm and result.get("slice"):
+        lines.extend(["## FDM slicing", "", f"- Backend: `{result['slice'].get('version', 'OrcaSlicer')}`",
+                      f"- Evidence: `{Path(result['slice']['profiles']['machine']).parent / 'receipt.json'}`", ""])
+        for warning in validation.get("slicer_warnings", []):
+            lines.append(f"- Slicer warning: `{warning.get('msg', warning)}`")
+        lines.append("")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines), encoding="utf-8")
 

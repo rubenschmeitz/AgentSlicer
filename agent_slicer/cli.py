@@ -197,7 +197,8 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "plan":
             from .pipeline import compile_plan, write_plan
 
-            root, plan = compile_plan(args.project)
+            root, plan = compile_plan(args.project, fdm_slicer_path=args.fdm_slicer,
+                                      fdm_profile_root=args.fdm_profile_root)
             path = write_plan(root, plan)
             value = plan.to_dict()
             value["plan_path"] = str(path)
@@ -210,6 +211,8 @@ def main(argv: list[str] | None = None) -> int:
                 result = build_project(
                     args.project,
                     resin_slicer_path=args.resin_slicer,
+                    fdm_slicer_path=args.fdm_slicer,
+                    fdm_profile_root=args.fdm_profile_root,
                     uvtools_path=args.uvtools,
                     work_root=args.work_root,
                     uvtools_workers=args.uvtools_workers,
@@ -232,7 +235,8 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if value["status"] == "passed" else 2
         elif args.command == "revalidate":
             from .revalidation import revalidate_project
-            value = revalidate_project(args.project, uvtools_path=args.uvtools, work_root=args.work_root)
+            value = revalidate_project(args.project, uvtools_path=args.uvtools, work_root=args.work_root,
+                                       fdm_slicer_path=args.fdm_slicer, fdm_profile_root=args.fdm_profile_root)
             _print(value)
             return 0 if value["status"] == "completed" else 3
         elif args.command == "analyze":
@@ -470,9 +474,13 @@ def _parser() -> argparse.ArgumentParser:
     )
     plan = sub.add_parser("plan")
     plan.add_argument("project")
+    plan.add_argument("--fdm-slicer", help="OrcaSlicer or Bambu Studio CLI executable")
+    plan.add_argument("--fdm-profile-root", help="installed OrcaSlicer resources/profiles directory")
     build = sub.add_parser("build")
     build.add_argument("project")
     build.add_argument("--resin-slicer")
+    build.add_argument("--fdm-slicer", help="OrcaSlicer or Bambu Studio CLI executable")
+    build.add_argument("--fdm-profile-root", help="installed OrcaSlicer resources/profiles directory")
     build.add_argument(
         "--uvtools",
         help="UVtoolsCmd executable (defaults to AGENT_SLICER_UVTOOLS or discovery)",
@@ -499,7 +507,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     validate = sub.add_parser("validate")
     validate.add_argument("path")
-    validate.add_argument("--format", choices=["ctb", "goo"])
+    validate.add_argument("--format", choices=["ctb", "goo", "3mf", "gcode.3mf", "gcode"])
     analyze = sub.add_parser("analyze")
     analyze.add_argument("path")
     analyze.add_argument("--output")
@@ -507,6 +515,8 @@ def _parser() -> argparse.ArgumentParser:
     revalidate = sub.add_parser("revalidate", help="repeat full production checks without reslicing")
     revalidate.add_argument("project")
     revalidate.add_argument("--uvtools")
+    revalidate.add_argument("--fdm-slicer", help="OrcaSlicer or Bambu Studio CLI executable")
+    revalidate.add_argument("--fdm-profile-root", help="installed OrcaSlicer resources/profiles directory")
     revalidate.add_argument("--work-root")
     analyze.add_argument(
         "--work-root",

@@ -1,0 +1,125 @@
+{
+  "calibration": "Saved filament flow/pressure values retained; no physical calibration receipt or separate local calibration file found.",
+  "date": "2026-10-14",
+  "fdm_test": {
+    "missing_capabilities": [
+      "fdm.slice",
+      "fdm.validate.basic"
+    ],
+    "status": "blocked"
+  },
+  "host": "TUE037612",
+  "inheritance": "Explicit file parent -> ordered include templates -> child; application implicit defaults excluded.",
+  "privacy": "Only printing settings, profile filenames and profile hashes; no config copies, .info files, accounts, printer/network files or models.",
+  "profiles": [
+    {
+      "catalog": "machines",
+      "id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "name": "Bambu Lab P2S 0.4 nozzle",
+      "scope": "system"
+    },
+    {
+      "catalog": "qualities",
+      "id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "name": "0.20mm High Quality @BBL P2S",
+      "scope": "system"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-system-bambu-petg-basic-bbl-p2s-0-4-nozzle-6b9b3ce2",
+      "name": "Bambu PETG Basic @BBL P2S 0.4 nozzle",
+      "scope": "system"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-bambu-pla-basic-bbl-p2s-copy-193bb105",
+      "name": "Bambu PLA Basic @BBL P2S - Copy",
+      "scope": "user"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-fiberon-asa-cf08-p2s-0-4-0658d2e1",
+      "name": "Fiberon ASA-CF08 - P2S 0.4",
+      "scope": "user"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-sunlu-abs-p2s-0-4-balanced-dbaeef82",
+      "name": "SUNLU ABS+ - P2S 0.4 Balanced",
+      "scope": "user"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-devil-design-asa-basic-bambu-lab-p2s-0-4-nozzle-300ef86d",
+      "name": "Devil Design ASA Basic @Bambu Lab P2S 0.4 nozzle",
+      "scope": "user"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-fiberon-pa-gf-pa6-gf25-polymaker-bambu-lab-p2s-0-4-nozzle-c2696431",
+      "name": "Fiberon PA-GF PA6-GF25 Polymaker @Bambu Lab P2S 0.4 nozzle",
+      "scope": "user"
+    },
+    {
+      "catalog": "machines",
+      "id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-x1-carbon-0-4-nozzle-e2b26b1e",
+      "name": "Bambu Lab X1 Carbon 0.4 nozzle",
+      "scope": "system"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-fiberon-pa-gf-pa6-gf25-polymaker-bambu-lab-x1-carbon-0-4-nozzle-0c8d6e84",
+      "name": "Fiberon PA-GF PA6-GF25 Polymaker @Bambu Lab X1 Carbon 0.4 nozzle",
+      "scope": "user"
+    },
+    {
+      "catalog": "materials",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-overture-petg-basic-bambu-lab-p2s-0-4-nozzle-8404bd1a",
+      "name": "OVERTURE PETG Basic @Bambu Lab P2S 0.4 nozzle",
+      "scope": "user"
+    },
+    {
+      "catalog": "machines",
+      "id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-2-nozzle-c40ebcc6",
+      "name": "Bambu Lab P2S 0.2 nozzle",
+      "scope": "system"
+    },
+    {
+      "catalog": "qualities",
+      "id": "tue037612-2026-10-14-02-08-00-06-user-0-06mm-miniatures-max-detail-bbl-p2s-0-2-nozzle-6d7ea12e",
+      "name": "0.06mm Miniatures MAX DETAIL @BBL P2S 0.2 nozzle",
+      "scope": "user"
+    }
+  ],
+  "remote_comparison": {
+    "host": "Thuis",
+    "missing": [
+      "selected presets",
+      "user overrides and calibration",
+      "system inheritance files",
+      "cross-host conflicts"
+    ],
+    "status": "unavailable"
+  },
+  "schema": "agent-slicer-bambu-collection/v1",
+  "selected_ids": {
+    "machine": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+    "materials": [
+      "tue037612-2026-10-14-02-08-00-06-system-bambu-petg-basic-bbl-p2s-0-4-nozzle-6b9b3ce2"
+    ],
+    "purpose": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557-source-supports",
+    "quality": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557"
+  },
+  "selected_names": {
+    "filaments": [
+      "Bambu PETG Basic @BBL P2S 0.4 nozzle"
+    ],
+    "machine": "Bambu Lab P2S 0.4 nozzle",
+    "process": "0.20mm High Quality @BBL P2S"
+  },
+  "source_roots": [
+    "%APPDATA%/BambuStudio/system/BBL",
+    "%APPDATA%/BambuStudio/user/[redacted]"
+  ],
+  "vendor_config_version": "02.08.00.06"
+}

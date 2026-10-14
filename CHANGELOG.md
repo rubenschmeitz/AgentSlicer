@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 0.4.0 - 2026-10-14
+
+- Integrate the uploaded work-PC Bambu collection with a Bambu Studio CLI
+  backend, explicit vector projection, preserved material/support overrides and
+  individual saved-setting checks. Inactive metadata and calibration extensions
+  remain visible in provenance.
+- Support Bambu statistics and non-extruding spiral Z-hop travel while rejecting
+  extruding arcs. Add stock 0.2 mm PLA for the imported miniature process without
+  reusing 0.4 mm calibration.
+
 - Retain and validate Resin-Slicer's native pre-encode layer audit, including
   detached connected components, bounded support-footprint issue records, and
   leading/internal/trailing empty layers alongside the independent post-encode
@@ -11,8 +21,15 @@
   profile identities, compatibility checks, and explicit calibration status.
 - Add unbounded external preset catalogs, atomic validated preset addition,
   SHA-256 catalog validation, and fail-closed duplicate-id handling.
-- Keep P2S slicing fail-closed by requesting FDM rather than resin capabilities;
-  the Bambu Studio production adapter remains unimplemented.
+- Add external OrcaSlicer FDM execution with installed vendor-profile
+  inheritance, Standard extruder selection, typed setting overrides, tree
+  supports, sliced 3MF, saved-settings/G-code validation, retained provenance
+  and failure candidates, and process-specific revalidation.
+- Add measured solid repair and bounded FDM orientation without resin tilt or
+  hollowing, implementation-bound preparation reuse, and repeated-copy packing
+  with bounded search for larger plates.
+- Verify real P2S 0.4 mm builds with PLA/PETG HF/ABS and 0.08/0.12/0.20/0.24 mm
+  profiles using OrcaSlicer 2.4.2. Physical printer acceptance remains untested.
 - Add resumable, approval-gated generation projects for parametric CadQuery
   parts and Meshy/Tripo text/image-to-model tasks.
 - Add strict millimetre CAD specifications, editable Python and STEP output,

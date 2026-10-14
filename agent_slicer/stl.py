@@ -106,14 +106,17 @@ def pack_shelf(
 ) -> list[Placement]:
     if len(models) != len(inspections):
         raise ValueError("model and inspection counts differ")
+    if (any(not math.isfinite(value) or value <= 0 for value in plate_size_mm)
+            or any(not math.isfinite(value) or value < 0 for value in (clearance_mm, margin_mm, support_footprint_margin_mm))):
+        raise PlatePackingError("plate dimensions must be positive and packing margins/clearance must be finite and nonnegative")
+    if sum(model.quantity for model in models) > 4096:
+        raise PlatePackingError("plate packing is bounded to 4096 copies per plate")
     usable_x = plate_size_mm[0] - 2 * margin_mm
     usable_y = plate_size_mm[1] - 2 * margin_mm
     items: list[dict[str, object]] = []
     for index, (model, inspection) in enumerate(
         zip(models, inspections, strict=True)
     ):
-        if model.quantity != 1:
-            raise PlatePackingError("quantity other than one is not implemented in the MVP")
         scale = 1.0
         if model.target_height_mm is not None:
             if inspection.dimensions[2] <= 0:
@@ -131,9 +134,9 @@ def pack_shelf(
                 f"model {model.id!r} ({width:.2f} x {depth:.2f} x {height:.2f} mm; "
                 f"support reserve {support_footprint_margin_mm:.2f} mm) does not fit the usable plate"
             )
-        items.append(
-            {
-                "index": index,
+        for _ in range(model.quantity):
+            items.append({
+                "index": len(items),
                 "model": model,
                 "inspection": inspection,
                 "source": str((root / model.source).resolve()),
@@ -141,8 +144,7 @@ def pack_shelf(
                 "width": width,
                 "depth": depth,
                 "height": height,
-            }
-        )
+            })
 
     # The supported project sizes are small enough for a bounded exhaustive
     # search over input order and 0/90-degree bed rotations. This prevents a
@@ -150,8 +152,20 @@ def pack_shelf(
     # poor while retaining deterministic shelf rows and safety margins.
     best: tuple[tuple[object, ...], list[Placement]] | None = None
     indices = tuple(range(len(items)))
-    for order in itertools.permutations(indices):
-        for rotations in itertools.product((0.0, 90.0), repeat=len(items)):
+    if len(items) <= 5:
+        orders = itertools.permutations(indices)
+        rotation_choices = list(itertools.product((0.0, 90.0), repeat=len(items)))
+    else:
+        # Exhaustive permutations become impractical with repeated copies.
+        # Larger plates use a deterministic bounded set of shelf heuristics.
+        orders = sorted({indices, *(tuple(sorted(indices, key=lambda i: (-float(items[i][key]), i)))
+                                    for key in ("width", "depth")),
+                         tuple(sorted(indices, key=lambda i: (-float(items[i]["width"]) * float(items[i]["depth"]), i)))})
+        rotation_choices = sorted({(0.0,) * len(items), (90.0,) * len(items),
+            tuple(90.0 if float(item["width"]) < float(item["depth"]) else 0.0 for item in items),
+            tuple(90.0 if float(item["width"]) > float(item["depth"]) else 0.0 for item in items)})
+    for order in orders:
+        for rotations in rotation_choices:
             x = margin_mm
             y = margin_mm
             row_depth = 0.0

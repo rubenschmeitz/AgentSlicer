@@ -1,0 +1,334 @@
+{
+  "active_vendor_version": "02.08.00.06",
+  "authority": "Active AppData system bundle; installed resources are older and never mixed into it.",
+  "installed_vendor_version": "02.08.00.04",
+  "sources": [
+    {
+      "active_sha256": "3aca3c7706694de368869b11fe250bf6aac0dac6ce37480bae72d517ad1473c0",
+      "changed_keys": [
+        "filament_max_volumetric_speed"
+      ],
+      "file": "Bambu ASA @BBL P2S 0.4 nozzle.json",
+      "installed_sha256": "dc14f2e196df4bc5d334c469afb3e2d7db13ca408852dea9a41c93a6fcc9d983",
+      "kind": "filament",
+      "printing_conflicts": {
+        "filament_max_volumetric_speed": {
+          "active_02.08.00.06": [
+            "18",
+            "25",
+            "18"
+          ],
+          "installed_02.08.00.04": [
+            "18",
+            "25",
+            "25"
+          ]
+        }
+      }
+    },
+    {
+      "active_sha256": "310374247ba329f98e3fcfa3bdb5402943c2081ac0c2de2e50dda83870f02368",
+      "changed_keys": [],
+      "file": "Bambu ASA @base.json",
+      "installed_sha256": "87e822228e642e46e8c9bf93e6be8bb10aea430748222e3c754fde6afd1f957d",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "6b9b3ce22d7dbcdeab4546788d793c18f9bed0c9f4d2b570f55535a138a1f37b",
+      "changed_keys": [
+        "filament_tower_ironing_area"
+      ],
+      "file": "Bambu PETG Basic @BBL P2S 0.4 nozzle.json",
+      "installed_sha256": "ba5474c9c26c689255560551dd8bff70195fbdfd57a7107c876d40d2111ab5d2",
+      "kind": "filament",
+      "printing_conflicts": {
+        "filament_tower_ironing_area": {
+          "active_02.08.00.06": null,
+          "installed_02.08.00.04": [
+            "8"
+          ]
+        }
+      }
+    },
+    {
+      "active_sha256": "25345e37ee61078940107143de8d2d1f295929cfbe3b586d208f215c9dad63aa",
+      "changed_keys": [],
+      "file": "Bambu PETG Basic @base.json",
+      "installed_sha256": "6c90530c589a513125b90466f778781bdea24b00cc03b13459237cfccd351cc7",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "30d354d101be214b34a4bc82fdeb410043247c49e91ed2c3dc3a8f4ca118f3db",
+      "changed_keys": [
+        "filament_max_volumetric_speed"
+      ],
+      "file": "Bambu PLA Basic @BBL P2S.json",
+      "installed_sha256": "3093288db6dffd23ad15ac96844b7dba1eeb5f8c99beb5b990b78e58d6c15d80",
+      "kind": "filament",
+      "printing_conflicts": {
+        "filament_max_volumetric_speed": {
+          "active_02.08.00.06": [
+            "21",
+            "40",
+            "21"
+          ],
+          "installed_02.08.00.04": [
+            "21",
+            "40",
+            "40"
+          ]
+        }
+      }
+    },
+    {
+      "active_sha256": "7783968745a19570354ca0601258cd5b82a6c96f835b682741635095b49e9cc7",
+      "changed_keys": [],
+      "file": "Bambu PLA Basic @base.json",
+      "installed_sha256": "c20044226215414d54647fcd5f1217ca3a6801e16b089add1de2b9af12957c07",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "3976cd7f4e3e61a6a5bd98c048ce0df4a80a43adc68874149a6ed44a450d2d67",
+      "changed_keys": [],
+      "file": "Generic ABS @BBL P2S.json",
+      "installed_sha256": "c92f5e7fc84ade9d4b4d3460047c487b5dc8e88ec926688ccde250751b7112a6",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "8fef064fe35857b6dabeab9c1fca4c2afffd620e34bd541abe2541c75679f5c1",
+      "changed_keys": [],
+      "file": "Generic ABS @base.json",
+      "installed_sha256": "9a53b882dedddfa0ede74db7115db680bb59386ccb4879c579460c30d0f6be2e",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "2b63aa6e570c00088b94ab67901b19b65eb441132ed868864d37bb397943f361",
+      "changed_keys": [],
+      "file": "fdm_filament_abs.json",
+      "installed_sha256": "aeaa5683ad2f0b86e66698b908b62d543ae7914ee03c786e7df6950625274cf9",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "f6afac86caf40a28530fe3594e733c92bd0fa9e5027ca8eb001fef03b3400e06",
+      "changed_keys": [],
+      "file": "fdm_filament_asa.json",
+      "installed_sha256": "67763fe862a1e6d52afff3f6844d7637b7c7941b8e6279b4a24b993887a4b91b",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+      "changed_keys": [],
+      "file": "fdm_filament_common.json",
+      "installed_sha256": "55573eb37c4031a58e939c4a2c281d62e234192509cac525d4f8d911e8a85c09",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "3ed1b36367fe6df800103a9deaaa036f9d79c7afda3f3a17514dff23aa96c7d8",
+      "changed_keys": [],
+      "file": "fdm_filament_pet.json",
+      "installed_sha256": "33ce64c25a626455eecf244ddd2e75022c08f95a074ba0d1690ab63802fab9d7",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "670d21ea6bdf1cd4b0a2bfddc743612ffd896cd6e5dbe767c25d2c4165c49a30",
+      "changed_keys": [],
+      "file": "fdm_filament_pla.json",
+      "installed_sha256": "1fb8e60457aeda25a5c1b16944188aaa4925267828a194993ddfbcbb727100fe",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19",
+      "changed_keys": [],
+      "file": "fdm_filament_template_direct_dual_e3d.json",
+      "installed_sha256": "623fba9d74071e87a035ffa6b7b84dd325563941c88302d133b7dbe0322eea20",
+      "kind": "filament",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "c40ebcc65c3025ca5c4d87eb257c721b5c723b27b90b125ed54a780c892f28ba",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.2 nozzle.json",
+      "installed_sha256": "5de4e195e61bc57b43d368d6886df32e446b21846340988dc3b8134da1973e21",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "e9860232cf78dddd2b6c5caf40fc5dbbfb32ed7359442b0c3eb2b40071574f75",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle template change_filament_gcode.json",
+      "installed_sha256": "c2709878ba427fbb26c974f44b7d713f02b54573fd7253ba33e08d30006b0f33",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "b3083c668de51abc18d82034aba3fcbe5058a4ac85a2d6d340b328bb2d2f1c57",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle template layer_change_gcode.json",
+      "installed_sha256": "a1d020eac0eb5bf61e9afa648350a7ae718a9750d17f94ec6ae743b068bba82a",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "aa6bdb6509012bef606c5bc0b9ab29c98a3e65a11ef7cf1bcb9aa8cd6a60f973",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle template machine_end_gcode.json",
+      "installed_sha256": "e000e99d72816bcb8d6ca322ce6303cabbbca49d2a2fb9e2bf16ebc6537d3cbf",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "868431ff7088bed3e1ef386b11989a23c5e1e632028817b416c377636788bdfb",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle template machine_start_gcode.json",
+      "installed_sha256": "5c41859de93479f93ebd69b82b5ac706bd24e3aa38468873b7415b9e13100b6d",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "9d37705ebcb44a5ee94d5415b8f4ce92c4d10fb23f4877c097928af847adf9f7",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle template time_lapse_gcode.json",
+      "installed_sha256": "09ef6ecfeda346160186c2c2647348d4d4f5044b8f7aa6e7fe5fad12a5f2ed57",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "b3db267ac5db28415bbfcf6ae4cee536a0f978bab589e8bf7ccdd4bbe00c7a2b",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle template wrapping_detection_gcode.json",
+      "installed_sha256": "8ce9a14b5f72fdd9fa983d920919d81b6e0be5f8ecad776f1508584dfb40f3b6",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "5edc3d8bca7cca8708c2f8c31bbfe591e94c423a399083c16578fa618e0349c9",
+      "changed_keys": [],
+      "file": "Bambu Lab P2S 0.4 nozzle.json",
+      "installed_sha256": "e91d26fecfd8d81e4caf6709fa7b3a689b3b7ff01ce0df55101ea3c163dc0e3f",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "cdde6fbb5e4f6ec353aeb61e41862dd04743c2bfe21369d31145170aa932d4ae",
+      "changed_keys": [],
+      "file": "Bambu Lab X1 Carbon 0.4 nozzle template change_filament_gcode.json",
+      "installed_sha256": "b3bab2512942484d9066c9bcaefdcb0204e9893967c38d866532f66c67dffa1e",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "595fa7ed12c23068b658ca4b006d4970bfd217a1503bed36b602cba93b2dc81a",
+      "changed_keys": [],
+      "file": "Bambu Lab X1 Carbon 0.4 nozzle template layer_change_gcode.json",
+      "installed_sha256": "d77b6e68aed3c213730f9e82d9157ba90e9e200f81f0e24cae088561249ff22f",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "e90eb249dceb719ff8511b59275793a85ab84e1d5b5d4981e1fe6256fb6ffe54",
+      "changed_keys": [],
+      "file": "Bambu Lab X1 Carbon 0.4 nozzle template machine_end_gcode.json",
+      "installed_sha256": "9fdc530d13a2187b2bd6655fe53303190dca1e53a9c5949aa71acf66b2025098",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "cc890a986c3f073e4691908d4bd3256222da9afc52fa9520261318bea9757505",
+      "changed_keys": [],
+      "file": "Bambu Lab X1 Carbon 0.4 nozzle template machine_start_gcode.json",
+      "installed_sha256": "4d099c5bbca95c8c823938bf7e783317d380588c6eae166c48880e965f67df3b",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "bd394064ba847dc7a75ab80c61c6a0824ac3d6876438b7c8bafd5646cf51b5c4",
+      "changed_keys": [],
+      "file": "Bambu Lab X1 Carbon 0.4 nozzle template time_lapse_gcode.json",
+      "installed_sha256": "4a6d6a47cddd68d8db243b8ee603a523bb5ba5b27bcdec8dd3d4db7804ae8d8c",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "e2b26b1e94216c8c1d823b9a327bf746c0aeeb1fa0e61489846cfc15b96b3b53",
+      "changed_keys": [],
+      "file": "Bambu Lab X1 Carbon 0.4 nozzle.json",
+      "installed_sha256": "81344cfea2c4c962d71ef28bdd875f0c74b272a628ba771dbe624d150ad58747",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "2ca207f457c1f9b3eb25a1801adb2eaa8ddc5620f5a8945abb51a3fcddab5e47",
+      "changed_keys": [],
+      "file": "fdm_bbl_3dp_001_common.json",
+      "installed_sha256": "aa5b0148c3131965ab2bb1d377b43301304030c3d87b339897cef98809a9004f",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "26ef8ee697849323e67d8e1a9026c175cebe3397e38c5091dddb5cd3fc52e94c",
+      "changed_keys": [],
+      "file": "fdm_machine_common.json",
+      "installed_sha256": "aef949f605e74bd7370dab061d9cb9f6b7fde5ae92e7fe3b34d98c0a7746c514",
+      "kind": "machine",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "fdeb47655091b5f45b59d9a9ff43124865364739be2e102f951416fe56c665f8",
+      "changed_keys": [],
+      "file": "0.08mm High Quality @BBL P2S 0.2 nozzle.json",
+      "installed_sha256": "a740f811a3715fd1c1332658d1658a241a2ccb43d134ab80af615bec30546677",
+      "kind": "process",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "8e0fa55781abc8c268cf59366f52832a0669a461c1ddffbbe603c7dc4ae8139d",
+      "changed_keys": [],
+      "file": "0.20mm High Quality @BBL P2S.json",
+      "installed_sha256": "bd7d87444d443b148a75e6b1491c7f388684dace8419acda98cb5e04020279f4",
+      "kind": "process",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "d7981c4b92854f251b8697e1bb621c63fe393f263fb8024ab63c401525d543d7",
+      "changed_keys": [],
+      "file": "fdm_process_common.json",
+      "installed_sha256": "ff2c0e49a424f70319e52eff6e84c57604b5b86deb883bb4d5614ff448d0c107",
+      "kind": "process",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "7434f81fbcb7d5b30e109fbb88aa129f9d7c2dbe5275bf17d60bf1b861eef61d",
+      "changed_keys": [],
+      "file": "fdm_process_single_0.08_nozzle_0.2.json",
+      "installed_sha256": "39944d1137e455c25734071645adbb3d306f689f7b24611d1bf48c08fc17347c",
+      "kind": "process",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "cdda8d56d67f62a0faa892cb6efc605ebb5c745bf742f6ead4daaeb6627c182a",
+      "changed_keys": [],
+      "file": "fdm_process_single_0.20.json",
+      "installed_sha256": "dc32f236bb0ae0d19560954a1beb87701dac4db85877f5f7c92b3a67315431c5",
+      "kind": "process",
+      "printing_conflicts": {}
+    },
+    {
+      "active_sha256": "05b38ac1318e465e817978b36da51754f928da0172738a20bb3a8d4a69eb4769",
+      "changed_keys": [],
+      "file": "fdm_process_single_common.json",
+      "installed_sha256": "b589e22e3a9f3513dd71d0a1061181c6f24a2e330b73b1cf7f63a292d7d6a37b",
+      "kind": "process",
+      "printing_conflicts": {}
+    }
+  ]
+}

@@ -14,6 +14,7 @@ from .stl import inspect_stl, pack_shelf
 from .resources import heavy_job
 from .uvtools_adapter import analyze_sliced_file, evaluate_production_analysis
 from .validation import validate_sliced_output
+from .fdm_validation import validate_fdm_output
 
 
 def _prepared_placement_evidence(root: Path, build: dict, resolved: dict) -> tuple[list, dict]:
@@ -31,8 +32,10 @@ def _prepared_placement_evidence(root: Path, build: dict, resolved: dict) -> tup
         raise ValueError("Prepared model inventory changed; build again")
     models, inspections, tracked = [], [], {}
     for model, entry in zip(manifest.models, entries):
-        cached = _find_cached_preparation(root, model, _preparation_arguments(
-            model, resolved["purpose"]["geometry"]))
+        arguments = _preparation_arguments(model, resolved["purpose"]["geometry"])
+        if resolved.get("process") == "fdm":
+            arguments["build_volume_mm"] = tuple(resolved["machine"]["build_volume_mm"])
+        cached = _find_cached_preparation(root, model, arguments)
         if cached is None or entry.get("model_id") != model.id:
             raise ValueError("Prepared geometry/settings changed; build again")
         mesh, report, result = cached
@@ -56,9 +59,10 @@ def _prepared_placement_evidence(root: Path, build: dict, resolved: dict) -> tup
 
 @heavy_job
 def revalidate_project(project: str | Path, *, uvtools_path: str | None = None,
+                       fdm_slicer_path: str | None = None, fdm_profile_root: str | Path | None = None,
                        work_root: str | Path | None = None) -> dict:
     """Do not reslice, weaken checks, upload or print. Preserve prior evidence."""
-    root, plan = compile_plan(project)
+    root, plan = compile_plan(project, fdm_slicer_path=fdm_slicer_path, fdm_profile_root=fdm_profile_root)
     if plan.blockers:
         raise BuildBlocked(plan)
     artifacts = root / "artifacts"
@@ -100,15 +104,31 @@ def revalidate_project(project: str | Path, *, uvtools_path: str | None = None,
     plate = Path(build["plate"]).resolve()
     if not plate.is_relative_to(artifacts.resolve()) or sha256_file(plate) != build.get("plate_sha256"):
         raise ValueError("Prepared plate changed after its build")
-    basic = validate_sliced_output(source)
+    is_fdm = plan.resolved_config.get("process") == "fdm"
+    if is_fdm:
+        profiles = {}
+        for kind, filename in build["slice"]["profiles"].items():
+            path = Path(filename).resolve()
+            if not path.is_relative_to(artifacts.resolve()) or sha256_file(path) != build["slice"]["profile_sha256"][kind]:
+                raise ValueError("Saved FDM backend settings changed; build again")
+            profiles[kind] = json.loads(path.read_text(encoding="utf-8"))
+            tracked[path] = sha256_file(path)
+        basic = validate_fdm_output(source, resolved=plan.resolved_config, expected_profiles=profiles,
+            native_keys={kind: value.get("validated_keys", []) for kind, value in build["slice"].get("native_profile_evidence", {}).items()})
+    else:
+        basic = validate_sliced_output(source)
     if basic["status"] != "passed":
         raise ValueError("Basic file validation failed")
     run_id = uuid4().hex
     report = root / "reports" / f"revalidation-{run_id}.json"
-    analysis = analyze_sliced_file(source, output=report, uvtools_path=uvtools_path,
-                                   work_root=work_root)
-    production = evaluate_production_analysis(analysis, plan.resolved_config)
-    if (sha256_file(source) != digest or analysis.get("source_sha256") != digest or
+    analysis, production = None, None
+    if is_fdm:
+        _write_json_atomic(report, basic)
+    else:
+        analysis = analyze_sliced_file(source, output=report, uvtools_path=uvtools_path,
+                                       work_root=work_root)
+        production = evaluate_production_analysis(analysis, plan.resolved_config)
+    if (sha256_file(source) != digest or (analysis is not None and analysis.get("source_sha256") != digest) or
             sha256_file(plate) != build["plate_sha256"] or
             sha256_file(root / "project.json") != project_digest or
             any(sha256_file(p) != value for p, value in tracked.items()) or
@@ -121,7 +141,7 @@ def revalidate_project(project: str | Path, *, uvtools_path: str | None = None,
     backup = history / f"build-{run_id}.json"
     with backup.open("xb") as handle:
         handle.write(before)
-    passed = production["status"] == "passed"
+    passed = basic["status"] == "passed" if is_fdm else production["status"] == "passed"
     if passed and source.parent != artifacts.resolve():
         approved = artifacts / f"approved-{digest[:16]}{source.suffix}"
         if approved.exists():
@@ -136,10 +156,11 @@ def revalidate_project(project: str | Path, *, uvtools_path: str | None = None,
     basic["path"] = str(source)
     result = {**build, "status": "completed" if passed else "rejected",
               "sliced_output": str(source), "validation": basic,
-              "production_validation": production,
               "revalidation": {"analysis_report": str(report),
                                "previous_build_report": str(backup), "source_sha256": digest}}
-    _write_json_atomic(artifacts / "production-validation.json", production)
+    if production is not None:
+        result["production_validation"] = production
+        _write_json_atomic(artifacts / "production-validation.json", production)
     _write_json_atomic(artifacts / "validation.json", basic)
     _write_json_atomic(manifest_path, result)
     _write_markdown_report(root / "reports" / "build-report.md", result, plan)

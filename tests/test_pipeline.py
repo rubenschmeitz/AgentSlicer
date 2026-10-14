@@ -725,9 +725,14 @@ class PipelineTests(unittest.TestCase):
                 purpose="test-smoke",
             )
             add_models(project, [source])
-            _, plan = compile_plan(project)
-            self.assertEqual(plan.blockers, [])
-            result = build_project(project, skip_slice=True)
+            # This native preparation test does not install or execute a resin
+            # slicer. Capability planning is covered separately below.
+            capabilities = {"mesh.inspect", "mesh.clean.degenerate", "mesh.scale", "plate.pack.shelf",
+                            "mesh.combine", "resin.slice", "resin.support.generate", "resin.validate.basic"}
+            with patch("agent_slicer.pipeline.available_capabilities", return_value=capabilities):
+                _, plan = compile_plan(project)
+                self.assertEqual(plan.blockers, [])
+                result = build_project(project, skip_slice=True)
             self.assertEqual(result["status"], "prepared")
             self.assertTrue(Path(result["plate"]).is_file())
 
