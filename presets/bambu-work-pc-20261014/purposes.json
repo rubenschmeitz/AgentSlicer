@@ -1,0 +1,48 @@
+{
+  "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557-source-supports": {
+    "arrangement": {
+      "clearance_mm": 5.0,
+      "enabled": true
+    },
+    "compatible_machines": [
+      "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b"
+    ],
+    "geometry": {
+      "hollow": false,
+      "repair": false
+    },
+    "process": "fdm",
+    "required_capabilities": [
+      "mesh.inspect",
+      "fdm.slice",
+      "fdm.validate.basic"
+    ],
+    "supports": {
+      "enabled": false,
+      "type": "tree(auto)"
+    }
+  },
+  "tue037612-2026-10-14-02-08-00-06-user-0-06mm-miniatures-max-detail-bbl-p2s-0-2-nozzle-6d7ea12e-source-supports": {
+    "arrangement": {
+      "clearance_mm": 5.0,
+      "enabled": true
+    },
+    "compatible_machines": [
+      "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-2-nozzle-c40ebcc6"
+    ],
+    "geometry": {
+      "hollow": false,
+      "repair": false
+    },
+    "process": "fdm",
+    "required_capabilities": [
+      "mesh.inspect",
+      "fdm.slice",
+      "fdm.validate.basic"
+    ],
+    "supports": {
+      "enabled": true,
+      "type": "tree(auto)"
+    }
+  }
+}

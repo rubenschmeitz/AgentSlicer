@@ -1,0 +1,44 @@
+{
+  "catalog_validation": "passed",
+  "fdm_slice": "blocked: fdm.slice and fdm.validate.basic unavailable",
+  "focused_tests": 11,
+  "importer_reproduction": "passed: all four catalogs and provenance match recollection from actual files",
+  "print_actions": 0,
+  "privacy_scan": "passed: no private keys or URL/path/email values in resolved printing settings",
+  "resolved_config_sha256": "6c6b0fa5aa775070f72a5496150074f399560172e4eec094044be5c72546ea94",
+  "saved_resolution_roundtrip": "passed",
+  "source_user_override_checks": [
+    {
+      "printing_override_fields_preserved": 3,
+      "profile": "Bambu PLA Basic @BBL P2S - Copy.json"
+    },
+    {
+      "printing_override_fields_preserved": 130,
+      "profile": "Devil Design ASA Basic @Bambu Lab P2S 0.4 nozzle.json"
+    },
+    {
+      "printing_override_fields_preserved": 11,
+      "profile": "Fiberon ASA-CF08 - P2S 0.4.json"
+    },
+    {
+      "printing_override_fields_preserved": 138,
+      "profile": "Fiberon PA-GF PA6-GF25 Polymaker @Bambu Lab P2S 0.4 nozzle.json"
+    },
+    {
+      "printing_override_fields_preserved": 138,
+      "profile": "Fiberon PA-GF PA6-GF25 Polymaker @Bambu Lab X1 Carbon 0.4 nozzle.json"
+    },
+    {
+      "printing_override_fields_preserved": 130,
+      "profile": "OVERTURE PETG Basic @Bambu Lab P2S 0.4 nozzle.json"
+    },
+    {
+      "printing_override_fields_preserved": 17,
+      "profile": "SUNLU ABS+ - P2S 0.4 Balanced.json"
+    },
+    {
+      "printing_override_fields_preserved": 52,
+      "profile": "0.06mm Miniatures MAX DETAIL @BBL P2S 0.2 nozzle.json"
+    }
+  ]
+}
