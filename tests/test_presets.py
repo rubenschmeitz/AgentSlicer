@@ -104,7 +104,7 @@ class PresetTests(unittest.TestCase):
             "108e108635f2a223219dcf8f5e8fe3fce5ef40df",
         )
         self.assertTrue(value["calibration"]["required"])
-        self.assertTrue(any("no installed Bambu Studio" in item for item in value["limitations"]))
+        self.assertTrue(any("requires OrcaSlicer" in item for item in value["limitations"]))
 
     def test_rejects_cross_printer_material(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

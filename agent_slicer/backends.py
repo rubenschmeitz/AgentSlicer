@@ -18,6 +18,8 @@ NATIVE_CAPABILITIES = {
     "plate.pack.support-aware",
     "mesh.combine",
     "resin.validate.basic",
+    "fdm.validate.basic",
+    "mesh.orient.fdm",
 }
 
 
@@ -33,7 +35,7 @@ class ToolInfo:
         return asdict(self)
 
 
-def discover_tools() -> dict[str, ToolInfo]:
+def discover_tools(*, fdm_slicer_path: str | None = None) -> dict[str, ToolInfo]:
     checkout_root = Path(__file__).resolve().parent.parent
     resin_slicer = _find(
         "AGENT_SLICER_RESIN_SLICER",
@@ -84,6 +86,18 @@ def discover_tools() -> dict[str, ToolInfo]:
         "/mnt/c/Program Files/UVtools/UVtoolsCmd.exe",
         prefer_known=True,
     )
+    orca = fdm_slicer_path or _find(
+        "AGENT_SLICER_ORCA_SLICER", "orca-slicer",
+        "C:/Program Files/OrcaSlicer/orca-slicer.exe",
+        "/Applications/OrcaSlicer.app/Contents/MacOS/OrcaSlicer",
+        str(Path.home() / "development-tools" / "orca-slicer" / "current" / "AppRun"),
+    )
+    bambu = _find("AGENT_SLICER_BAMBU_STUDIO", "bambu-studio",
+        "C:/Program Files/Bambu Studio/bambu-studio.exe",
+        "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+        str(Path.home() / "development-tools" / "bambu-studio" / "current" / "AppRun"))
+    if fdm_slicer_path and not Path(fdm_slicer_path).is_file():
+        raise ValueError(f"OrcaSlicer executable does not exist: {fdm_slicer_path}")
     return {
         "native": ToolInfo(
             id="native",
@@ -103,6 +117,13 @@ def discover_tools() -> dict[str, ToolInfo]:
             else (),
             planned_capabilities=(),
         ),
+        "orca-slicer": ToolInfo(
+            id="orca-slicer", path=orca, discovered=orca is not None,
+            implemented_capabilities=("fdm.slice", "fdm.support.generate") if orca else (),
+            planned_capabilities=(),
+        ),
+        "bambu-studio": ToolInfo(id="bambu-studio", path=bambu, discovered=bambu is not None,
+            implemented_capabilities=("fdm.slice", "fdm.support.generate") if bambu else (), planned_capabilities=()),
         "blender": ToolInfo(
             id="blender",
             path=blender,
@@ -140,6 +161,15 @@ def available_capabilities(tools: dict[str, ToolInfo] | None = None) -> set[str]
         if tool.discovered:
             result.update(tool.implemented_capabilities)
     return result
+
+
+def fdm_tool(tools: dict[str, ToolInfo], resolved: dict, explicit: str | None = None) -> str | None:
+    if explicit:
+        return explicit
+    archived = any(isinstance(resolved[label].get("upstream_profile", {}).get("resolved_settings"), dict)
+                   for label in ("machine", "material", "quality"))
+    order = ("bambu-studio", "orca-slicer") if archived else ("orca-slicer", "bambu-studio")
+    return next((tools[key].path for key in order if key in tools and tools[key].path), None)
 
 
 def _find(

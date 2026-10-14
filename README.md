@@ -22,8 +22,13 @@ python -m venv .venv
 The companion resin backend is included in `companion/Resin-Slicer` and needs
 its own installation. Blender and UVtools are external dependencies. Configure
 their paths using `AGENT_SLICER_BLENDER`, `AGENT_SLICER_UVTOOLS`, and
-`AGENT_SLICER_RESIN_SLICER`. FDM preparation is supported, while the FDM slicing
-adapter still requires end-to-end verification.
+`AGENT_SLICER_RESIN_SLICER`. FDM builds use an installed OrcaSlicer CLI via
+`AGENT_SLICER_ORCA_SLICER` or `--fdm-slicer`. See [FDM setup and validation](docs/fdm.md)
+for the verified P2S workflow, vendor profiles, tree supports, and sliced 3MF output.
+Imported Bambu Studio presets use Bambu Studio via `AGENT_SLICER_BAMBU_STUDIO`.
+The [work-PC collection](presets/bambu-work-pc-20261014/README.md) contains the
+saved PETG Basic/High Quality selection, custom filaments and 0.2 mm miniature
+settings. User overrides remain separate from installed firmware templates.
 
 ## Original integrated Windows installation
 
@@ -125,9 +130,10 @@ The server binds to localhost by default and exposes no mutation endpoints.
 Binding `--host` to another interface should be done only on a trusted network;
 the viewer is deliberately not an authenticated multi-user service.
 
-The current `0.3.0` implementation is a validation-gated resin workflow. It is
+The current implementation includes validation-gated resin and FDM workflows. It is
 designed for unattended CLI/SDK use while retaining machine-readable evidence
-for every lossy geometry and slicing step. It is focused on resin production;
+for every lossy geometry and slicing step. Resin uses UVtools production checks;
+FDM uses OrcaSlicer and saved-settings/G-code checks. Both require physical calibration;
 it is not a universal replacement for every interactive feature in mature GUI
 slicers.
 
@@ -138,6 +144,14 @@ slicers.
 - Evidence-bearing Mars 3 Pro and Bambu Lab P2S setting recommendations, with
   pinned upstream profile identity, explicit calibration status, and
   compatibility checks.
+- OrcaSlicer CLI execution with installed vendor-profile inheritance, explicit
+  Standard extruder selection, firmware start/end G-code, typed process/material
+  overrides, tree supports, and single-plate sliced 3MF output.
+- Measured solid repair and a separate six-bed-face FDM orientation heuristic.
+- Streaming saved-G-code checks for deposition bounds, layers, filament
+  statistics, and checksum; saved settings must match the requested profile.
+- Multiple copies with deterministic packing; larger plates use a bounded
+  heuristic instead of exhaustive permutations.
 - Unbounded external preset directories with schema validation, atomic entry
   addition, and fail-closed duplicate-id handling.
 - Streaming binary/ASCII STL inspection.
@@ -211,10 +225,12 @@ slicers.
   point-to-triangle measurement, not an exact Hausdorff proof. If no candidate
   satisfies every topology, deviation, bounds, and volume gate, the original
   prepared STL is retained.
-- P2S machine, Bambu material, and process profiles can be resolved and audited,
-  but the production FDM/Bambu Studio adapter is not implemented. FDM plans
-  therefore remain blocked; profile availability does not imply sliced-output
-  support.
+- FDM requires OrcaSlicer and matching installed vendor profiles. Verified
+  coverage is P2S 0.4 mm, PLA Basic/PETG HF/ABS, and 0.08/0.12/0.20/0.24 mm
+  profiles. Other printers require complete compatible external presets.
+- FDM validates single-plate, single-filament linear toolpaths. Multi-material,
+  arc G-code, nonrectangular beds, semantic orientation, and physical printer
+  acceptance are outside the current verified scope.
 - UVtools passing is detector evidence. It does not prove firmware acceptance,
   resin calibration, or a successful physical print.
 - Resin-Slicer's native structural receipt observes rasters before proprietary

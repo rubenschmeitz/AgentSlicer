@@ -21,6 +21,31 @@ assert recommendation["calibration"]["required"]
 print(recommendation["settings"])
 ```
 
+FDM uses the same build API with an installed OrcaSlicer CLI. Machine presets
+must allow the output format and identify matching installed vendor profiles:
+
+```python
+from agent_slicer.pipeline import build_project, compile_plan
+from agent_slicer.project import add_models, init_project
+
+project = init_project(
+    "projects/fdm-part", name="fdm-part", process="fdm",
+    machine="bambu-lab-p2s-0.4", material="bambu-pla-basic-p2s",
+    purpose="fdm-display-supported", quality="p2s-0.20-standard",
+    output_format="gcode.3mf",
+)
+add_models(project, ["part.stl"])
+_, plan = compile_plan(project, fdm_slicer_path="/absolute/path/to/OrcaSlicer")
+assert not plan.blockers, plan.blockers
+result = build_project(project, fdm_slicer_path="/absolute/path/to/OrcaSlicer")
+assert result["validation"]["status"] == "passed"
+```
+
+Use `fdm_profile_root` when vendor profiles cannot be discovered beside the
+executable. [FDM setup](fdm.md) covers settings translation, validation scope,
+evidence, and real verification. A passed software build does not prove physical
+printability and never starts a print.
+
 Fleet-specific printers can be kept outside the package and loaded without a
 count limit. `add_external_preset` atomically adds one validated definition;
 `validate_catalog_directory` audits each catalog and returns its SHA-256.

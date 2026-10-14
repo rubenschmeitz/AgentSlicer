@@ -102,6 +102,11 @@ def resolve_presets(
         quality_value = deepcopy(qualities[quality])
     except KeyError as exc:
         raise PresetError(f"unknown preset: {exc.args[0]}") from exc
+    if process == "fdm":
+        from .bambu_presets import runtime_definition
+        machine_value = runtime_definition("machine", machine_value)
+        material_value = runtime_definition("filament", material_value)
+        quality_value = runtime_definition("process", quality_value)
 
     selected_ids = {
         "machine": machine,
@@ -144,9 +149,22 @@ def resolve_presets(
         "purpose": purpose_value,
         "quality": quality_value,
     }
+    original_machine_limits = deepcopy(machine_value.get("settings", {}))
     if overrides:
         resolved["user_overrides"] = deepcopy(overrides)
         _merge_known(resolved, overrides, path="overrides")
+        if process == "fdm":
+            # A project may reduce hardware limits, but raising them requires
+            # a separately selected machine preset with its own evidence.
+            original = original_machine_limits
+            actual = resolved["machine"].get("settings", {})
+            for key in ("max_nozzle_temperature_c", "max_bed_temperature_c"):
+                if key in original and float(actual[key]) > float(original[key]):
+                    raise PresetError(f"FDM override may not increase machine hard limit {key}")
+            for group in ("machine_max_speed_mm_s", "machine_max_acceleration_mm_s2"):
+                for axis, limit in original.get(group, {}).items():
+                    if float(actual[group][axis]) > float(limit):
+                        raise PresetError(f"FDM override may not increase machine hard limit {group}.{axis}")
     return resolved
 
 
@@ -212,8 +230,8 @@ def recommend_settings(
     limitations.extend(quality_value.get("limitations", []))
     if process == "fdm":
         limitations.append(
-            "Agent-Slicer records and resolves this FDM profile, but the current "
-            "production pipeline has no installed Bambu Studio slicing adapter."
+            "FDM slicing requires OrcaSlicer or Bambu Studio and matching installed vendor profiles; "
+            "saved-file validation does not establish material calibration or physical printability."
         )
 
     return {

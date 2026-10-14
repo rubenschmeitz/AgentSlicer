@@ -1,0 +1,298 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-petg-basic-bbl-p2s-0-4-nozzle-6b9b3ce2",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "5849b623775123e95130ece8628544e3094f987626b535997c566ad92fb63d8e",
+      "checks": 495,
+      "statistics": {
+        "bytes": 107060,
+        "declared_layers": 30,
+        "deposited_bounds_mm": {
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ],
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ]
+        },
+        "deposited_moves": 754,
+        "filament_mm": 59.28,
+        "has_time_estimate": true,
+        "layers": 30,
+        "md5": "5e63b2836a7fc412741f9da913b4e44f",
+        "out_of_bounds_moves": 0,
+        "unsupported_commands": []
+      },
+      "inactive_calibration": {},
+      "revalidation_verified": true
+    },
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-user-bambu-pla-basic-bbl-p2s-copy-193bb105",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "bb42e12c050b0295f8aa5b2c884b69e21e6b871aaae1bc816023b78030a2425c",
+      "checks": 494,
+      "statistics": {
+        "bytes": 106980,
+        "declared_layers": 30,
+        "deposited_bounds_mm": {
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ],
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ]
+        },
+        "deposited_moves": 754,
+        "filament_mm": 61.16,
+        "has_time_estimate": true,
+        "layers": 30,
+        "md5": "64914920749922201f4379620f9bba82",
+        "out_of_bounds_moves": 0,
+        "unsupported_commands": []
+      },
+      "inactive_calibration": {}
+    },
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-user-devil-design-asa-basic-bambu-lab-p2s-0-4-nozzle-300ef86d",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "3db3d78fd01ed673cfbaea011bb0a2cbabc09b73aafe76c2116d7d7c1bf6d851",
+      "checks": 492,
+      "statistics": {
+        "bytes": 107119,
+        "declared_layers": 30,
+        "deposited_bounds_mm": {
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ],
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ]
+        },
+        "deposited_moves": 754,
+        "filament_mm": 59.28,
+        "has_time_estimate": true,
+        "layers": 30,
+        "md5": "68dc088a83e079377e430932f27625cc",
+        "out_of_bounds_moves": 0,
+        "unsupported_commands": []
+      },
+      "inactive_calibration": {
+        "enable_pressure_advance": [
+          "0.0"
+        ],
+        "pressure_advance": [
+          "0.02"
+        ]
+      }
+    },
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-user-fiberon-asa-cf08-p2s-0-4-0658d2e1",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "13af5ccccba765c36dbd3b3b19ea547c8d4075c41382673634bf8766c7d1bdad",
+      "checks": 493,
+      "statistics": {
+        "bytes": 109047,
+        "declared_layers": 30,
+        "deposited_bounds_mm": {
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ],
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ]
+        },
+        "deposited_moves": 754,
+        "filament_mm": 59.28,
+        "has_time_estimate": true,
+        "layers": 30,
+        "md5": "a4bf1b24ca4eb60e62f102b86e0f42bb",
+        "out_of_bounds_moves": 0,
+        "unsupported_commands": []
+      },
+      "inactive_calibration": {}
+    },
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-user-fiberon-pa-gf-pa6-gf25-polymaker-bambu-lab-p2s-0-4-nozzle-c2696431",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "7e9464f1805bd1072a70478d8630953cfd0b3f34be8416d11dc6672c385fa2a7",
+      "checks": 500,
+      "statistics": {
+        "layers": 30,
+        "declared_layers": 30,
+        "filament_mm": 59.91,
+        "has_time_estimate": true,
+        "deposited_moves": 754,
+        "out_of_bounds_moves": 0,
+        "deposited_bounds_mm": {
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ],
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ]
+        },
+        "unsupported_commands": [],
+        "md5": "db29fb5f0cd2afe0a3c8c23017dcb62d",
+        "bytes": 107749
+      },
+      "inactive_calibration": {
+        "pressure_advance": [
+          "0.02"
+        ],
+        "enable_pressure_advance": [
+          "0.0"
+        ]
+      }
+    },
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-user-overture-petg-basic-bambu-lab-p2s-0-4-nozzle-8404bd1a",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "de3d512a881c1c642cc9af788a2525fc15795a54166881744307fd05c119d604",
+      "checks": 492,
+      "statistics": {
+        "layers": 30,
+        "declared_layers": 30,
+        "filament_mm": 59.28,
+        "has_time_estimate": true,
+        "deposited_moves": 754,
+        "out_of_bounds_moves": 0,
+        "deposited_bounds_mm": {
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ],
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ]
+        },
+        "unsupported_commands": [],
+        "md5": "e62a65b0f1b09b55035bac875d362968",
+        "bytes": 107195
+      },
+      "inactive_calibration": {
+        "pressure_advance": [
+          "0.02"
+        ],
+        "enable_pressure_advance": [
+          "0.0"
+        ]
+      }
+    },
+    {
+      "material_id": "tue037612-2026-10-14-02-08-00-06-user-sunlu-abs-p2s-0-4-balanced-dbaeef82",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-4-nozzle-5edc3d8b",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-system-0-20mm-high-quality-bbl-p2s-8e0fa557",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "100b57bfa1b7beb55023bed7ac4d4eac1121a2698527545850afae82fd6e6b6b",
+      "checks": 493,
+      "statistics": {
+        "layers": 30,
+        "declared_layers": 30,
+        "filament_mm": 59.28,
+        "has_time_estimate": true,
+        "deposited_moves": 754,
+        "out_of_bounds_moves": 0,
+        "deposited_bounds_mm": {
+          "min": [
+            5.21,
+            5.21,
+            0.2
+          ],
+          "max": [
+            10.79,
+            10.79,
+            6.0
+          ]
+        },
+        "unsupported_commands": [],
+        "md5": "9ee0cfa48ab9fdcd6aa19300bcc42db2",
+        "bytes": 107078
+      },
+      "inactive_calibration": {}
+    },
+    {
+      "material_id": "bambu-stock-pla-basic-p2s-0.2-v02.08.02.61",
+      "machine_id": "tue037612-2026-10-14-02-08-00-06-system-bambu-lab-p2s-0-2-nozzle-c40ebcc6",
+      "quality_id": "tue037612-2026-10-14-02-08-00-06-user-0-06mm-miniatures-max-detail-bbl-p2s-0-2-nozzle-6d7ea12e",
+      "status": "passed",
+      "backend": "BambuStudio-02.08.02.61:",
+      "sliced_sha256": "d18c10e55e28757147f47983b8d66f057b5a2394031243d4a9bb72f1e91818ab",
+      "checks": 496,
+      "statistics": {
+        "layers": 169,
+        "declared_layers": 169,
+        "filament_mm": 88.75,
+        "has_time_estimate": true,
+        "deposited_moves": 19190,
+        "out_of_bounds_moves": 0,
+        "deposited_bounds_mm": {
+          "min": [
+            0.788,
+            0.806,
+            0.1
+          ],
+          "max": [
+            18.219,
+            18.218,
+            8.98
+          ]
+        },
+        "unsupported_commands": [],
+        "md5": "85f3932d6423c396ae90ed9ff3b8b02c",
+        "bytes": 806169
+      },
+      "inactive_calibration": {},
+      "support_features": 22
+    }
+  ],
+  "untested": [
+    "Fiberon PA-GF PA6-GF25 Polymaker @Bambu Lab X1 Carbon 0.4 nozzle"
+  ],
+  "software_version": "0.4.0",
+  "physical_print_verified": false,
+  "thuis_collection_available": false
+}

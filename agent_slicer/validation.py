@@ -15,7 +15,10 @@ def validate_sliced_output(
     output_format: str | None = None,
 ) -> dict[str, Any]:
     source = Path(path)
-    selected = (output_format or source.suffix.lstrip(".")).lower()
+    selected = (output_format or ("gcode.3mf" if source.name.lower().endswith(".gcode.3mf") else source.suffix.lstrip("."))).lower()
+    if selected in {"3mf", "gcode.3mf", "gcode"}:
+        from .fdm_validation import validate_fdm_output
+        return validate_fdm_output(source)
     if selected == "ctb":
         return validate_ctb(source)
     if selected == "goo":

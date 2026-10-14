@@ -8,6 +8,21 @@ from agent_slicer.presets import PresetError, resolve_presets, validate_catalog_
 
 
 class BambuImportTests(unittest.TestCase):
+    def test_runtime_projection_preserves_quality_and_material_limits(self):
+        root = Path(__file__).resolve().parents[1] / "presets/bambu-work-pc-20261014"
+        selection = json.loads((root / "provenance.json").read_text())["selected_ids"]
+        config = resolve_presets(process="fdm", machine=selection["machine"], material=selection["materials"][0],
+            purpose=selection["purpose"], quality=selection["quality"], output_format="gcode.3mf", search_paths=[root])
+        self.assertEqual(config["quality"]["settings"]["speeds_mm_s"]["outer_wall"], 60)
+        self.assertEqual(config["quality"]["settings"]["sparse_infill_pattern"], "gyroid")
+        self.assertEqual(config["material"]["settings"]["max_volumetric_speed_mm3_s"], 15)
+        self.assertEqual(config["machine"]["settings"]["max_nozzle_temperature_c"], 300)
+        self.assertEqual(config["machine"]["margin_mm"], 5)
+        with self.assertRaisesRegex(PresetError, "hard limit"):
+            resolve_presets(process="fdm", machine=selection["machine"], material=selection["materials"][0],
+                purpose=selection["purpose"], quality=selection["quality"], output_format="gcode.3mf", search_paths=[root],
+                overrides={"machine": {"settings": {"max_nozzle_temperature_c": 350}}})
+
     def test_parent_include_child_vectors_and_privacy(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -46,11 +46,12 @@ slice-by-model/height/area export.
 
 ## M5 — FDM adapters and presets
 
-Agent-controlled PrusaSlicer/CuraEngine adapters with stable ToolpathIR and G-code
-validation. The preset/recommendation subset is now implemented for the Bambu
-Lab P2S 0.4 mm machine and pinned official Bambu process/filament profiles;
-production slicing, output validation, and an isolated Bambu Studio adapter
-remain to be implemented and verified.
+An isolated OrcaSlicer CLI adapter now executes existing FDM algorithms and
+installed vendor profiles, with measured solid preparation, FDM orientation,
+tree supports, repeated copies, sliced 3MF, saved-settings/G-code validation,
+and revalidation. Real P2S 0.4 mm builds cover PLA/PETG HF/ABS and four quality
+profiles. Further printer verification, multi-material/plate support, stable
+ToolpathIR, and additional engine adapters remain future work. See [FDM](fdm.md).
 
 ## M6 — native FDM
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from copy import deepcopy
 from pathlib import Path
 
 from .presets import PresetError
@@ -165,4 +166,87 @@ def definition(kind, name, settings, sources, excluded, host, version):
     if kind == "process":
         value["layer_height_mm"] = first_number(settings, "layer_height")
         value["validation_policy"] = "standard"
+    return value
+
+
+def runtime_definition(kind: str, definition: dict) -> dict:
+    """Project archived Bambu fields into typed settings without losing vectors.
+
+    The archive stays immutable. Explicit catalog/project overrides retain
+    precedence over the projected values. Firmware G-code is supplied only by
+    the separately installed matching backend machine profile.
+    """
+    value = deepcopy(definition)
+    upstream = value.get("upstream_profile", {})
+    raw = upstream.get("resolved_settings")
+    if not isinstance(raw, dict):
+        return value
+    variants = raw.get({"machine": "printer_extruder_variant", "filament": "filament_extruder_variant",
+                        "process": "print_extruder_variant"}[kind], [])
+    variant = upstream.get("extruder_variant", "Direct Drive Standard")
+    if variants and variant not in variants:
+        raise PresetError(f"imported profile lacks extruder variant {variant!r}")
+    index = variants.index(variant) if variants else 0
+    upstream["extruder_variant"] = variant
+
+    def scalar(key, numeric=True):
+        item = raw[key]
+        if isinstance(item, list):
+            item = item[index] if len(item) == len(variants) and variants else item[0]
+        return float(item) if numeric else item
+
+    maps = {
+        "filament": {"filament_type": "filament_type", "filament_flow_ratio": "flow_ratio",
+            "filament_max_volumetric_speed": "max_volumetric_speed_mm3_s", "nozzle_temperature": "nozzle_temperature_c",
+            "nozzle_temperature_initial_layer": "initial_nozzle_temperature_c", "textured_plate_temp": "textured_pei_bed_temperature_c",
+            "eng_plate_temp": "engineering_plate_temperature_c", "hot_plate_temp": "hot_plate_temperature_c",
+            "fan_min_speed": "part_fan_min_percent", "fan_max_speed": "part_fan_max_percent",
+            "additional_cooling_fan_speed": "aux_fan_percent", "close_fan_the_first_x_layers": "fan_off_first_layers",
+            "slow_down_layer_time": "slow_down_layer_time_s", "slow_down_min_speed": "slow_down_min_speed_mm_s",
+            "pressure_advance": "pressure_advance", "enable_pressure_advance": "enable_pressure_advance"},
+        "process": {"layer_height": "layer_height_mm", "initial_layer_print_height": "initial_layer_height_mm",
+            "line_width": "line_width_mm", "initial_layer_line_width": "initial_layer_line_width_mm",
+            "outer_wall_line_width": "outer_wall_line_width_mm", "inner_wall_line_width": "inner_wall_line_width_mm",
+            "top_surface_line_width": "top_surface_line_width_mm", "wall_loops": "wall_loops",
+            "top_shell_layers": "top_shell_layers", "bottom_shell_layers": "bottom_shell_layers",
+            "sparse_infill_pattern": "sparse_infill_pattern", "support_type": "support_type",
+            "support_threshold_angle": "support_threshold_angle_deg", "support_top_z_distance": "support_top_z_distance_mm",
+            "support_bottom_z_distance": "support_bottom_z_distance_mm", "resolution": "mesh_resolution_mm"},
+        "machine": {"nozzle_diameter": "nozzle_diameter_mm", "nozzle_type": "nozzle_type"},
+    }[kind]
+    projected = {target: scalar(source, target not in {"filament_type", "nozzle_type", "sparse_infill_pattern", "support_type"})
+                 for source, target in maps.items() if source in raw}
+    if kind == "process":
+        projected["sparse_infill_percent"] = float(str(scalar("sparse_infill_density", False)).rstrip("%"))
+        projected["support_enabled"] = str(raw.get("enable_support", "0")) in {"1", "true"}
+        groups = {"speeds_mm_s": {"initial_layer": "initial_layer_speed", "outer_wall": "outer_wall_speed",
+            "inner_wall": "inner_wall_speed", "sparse_infill": "sparse_infill_speed", "top_surface": "top_surface_speed",
+            "support": "support_speed", "support_interface": "support_interface_speed", "travel": "travel_speed"},
+            "accelerations_mm_s2": {"default": "default_acceleration", "outer_wall": "outer_wall_acceleration",
+            "initial_layer": "initial_layer_acceleration", "travel": "travel_acceleration"}}
+        for group, fields in groups.items():
+            projected[group] = {key: scalar(source) for key, source in fields.items() if source in raw}
+    if kind == "machine":
+        model = raw.get("printer_model")
+        caps = {"Bambu Lab P2S": (300, 110), "Bambu Lab X1 Carbon": (300, 120)}
+        if model not in caps:
+            raise PresetError(f"imported machine requires documented hardware limits: {model!r}")
+        nozzle_cap, bed_cap = caps[model]
+        projected.update(technology="FFF", build_volume_mm=value["build_volume_mm"],
+            max_nozzle_temperature_c=nozzle_cap, max_bed_temperature_c=bed_cap, default_bed="Textured PEI Plate",
+            machine_max_speed_mm_s={axis: scalar(f"machine_max_speed_{axis}") for axis in ("x", "y", "z", "e")},
+            machine_max_acceleration_mm_s2={axis: scalar(f"machine_max_acceleration_{axis}")
+                for axis in ("x", "y", "z", "extruding", "travel")})
+        excluded = raw.get("bed_exclude_area", [])
+        value.setdefault("margin_mm", max([5.] + [float(n) + 2. for point in excluded for n in point.lower().split("x")]))
+    settings = value.get("settings", {})
+    for key, item in settings.items():
+        if isinstance(item, dict) and isinstance(projected.get(key), dict):
+            projected[key].update(item)
+        else:
+            projected[key] = item
+    value["settings"] = projected
+    upstream["backend_status"] = "Bambu Studio CLI required; active saved settings are checked during builds"
+    value["limitations"] = [item for item in value.get("limitations", [])
+        if "no Agent-Slicer FDM adapter consumes" not in item]
     return value

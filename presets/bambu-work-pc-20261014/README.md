@@ -25,19 +25,23 @@ are not invented. It follows parent, ordered include templates, then child
 precedence, as in the official Bambu Studio PresetBundle.cpp loader:
 https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/PresetBundle.cpp
 
-No FDM slicing adapter is implemented in this revision. fdm.slice and
-fdm.validate.basic are unavailable, so no slicing success is claimed. The
-installed Windows GUI executable produced no CLI help output. Saved-resolution
-checks validate settings/catalogs, not G-code, mechanical quality or calibration.
+Collection-time verification/provenance files retain the original blocked FDM
+status. Agent-Slicer 0.4 consumes these settings through Bambu Studio CLI with
+explicit variant projection, user-override precedence, saved-file checks and
+G-code validation. See [FDM setup](../../docs/fdm.md) and the separate integration
+verification report. Historical source receipts are unchanged.
 
 Each definition reports unmapped_keys (retained in full upstream settings)
 and excluded_keys (values withheld). User calibration/support extension keys
 are explicitly retained and labeled even when absent from the vendor schema. These settings are reusable for resolution
-and auditing; a future FDM adapter must consume them explicitly. G-code
+and auditing; the 0.4 adapter consumes supported active fields explicitly. G-code
 snippets, notes, account/service ids, .info sidecars, network/printer/login
 configuration and model files are excluded. The complete BambuStudio.conf and
 configuration directory are never copied. Saved flow ratios and pressure
 advance are retained; separate calibration history/physical receipts were absent.
+Disabled pressure-advance extensions stay inactive. A separately labeled stock
+0.2 mm PLA material was added for the miniature process, whose original
+collection had no matching imported filament.
 
 From the repository root:
 
